@@ -34,13 +34,13 @@
 \setlength{\pdfpagewidth}{\pprw}
 \setlength{\pdfpageheight}{\pprh}
 
-%====================%
-%====================%
+
+%===========================================================================%
 
 \newcommand{\cs}{C\slash S}
 \usepackage {mdwlist}
-%====================%
-%====================%
+%===========================================================================%
+
 
 
 % Make sure hyperref comes last of your loaded packages, 
@@ -101,8 +101,8 @@ breaklinks=true,
 
 \maketitle
 
-%====================%
-%====================%
+
+%===========================================================================%
 \begin{abstract}
 %
 \end{abstract}
@@ -111,8 +111,8 @@ breaklinks=true,
 
 
 
-%====================%
-%====================%
+%===========================================================================%
+
 
 \section{Introduction}
 \label{introduction}
@@ -137,22 +137,22 @@ We include concepts from both game design and NDN in section \nameref{background
 
 
 
-%====================%
-%====================%
+
+%===========================================================================%
 \section{BACKGROUND}
 \label{background}
 
 % not so sure %
 % In this section we put game design and NDN side by side and summarize concepts, from both realm, that are most closely related to consistency, scalability and security.
 
-%-----------------------------------%
+%-----------------------------------------------------------------------------------------------------------------------------------%
 \subsection{Game Design Background}
 \label{gamedesignbg}
 
 % (scalability -- architecture)  (consistency -- synchronization algorithm) %
 The scalability of a system is closely related to its architecture. In an unscalable architecture, when the client number increases resource bottlenecks would appear, reducing system overall performance. Depending on which architecture is used, a system may need a synchronization mechanism to maintain consistency. Security and cheating avoidance strategies are also architecture-dependent.
 
-% . . . . . . . . . . . . . . . . . . . . . . . %
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . %
 \subsubsection{Game Architectures}
 \label{game_archi}
 
@@ -212,7 +212,7 @@ In contrast, in P2P architectures (figure~\ref{p2p}) there is no central authori
 Hybrids of {\cs} and P2P exist: Mirrored Game Servers, Distributed Scene Graphs and many more. These architectures are described in~\cite{Ldsg, Scheating, Fgame, Csync}.
 
 
-% . . . . . . . . . . . . . . . . . . . . . . . %
+% . . . . . . . .  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . %
 \subsubsection{Synchronization Mechanisms}
 \label{syncalgr}
 
@@ -223,7 +223,7 @@ Conservative synchronization algorithms would allow each peer to process receive
 
 Optimistic synchronization algorithms assume received events are in correct order and process them without delay. Then, if late events arrived a \emph{rollback} will be performed and all those optimistically executed events should be canceled and reprocessed. In order to rollback, large memory will used to take multiple snapshots of game state. Also, a mechanism to determine the early bound of rollback (for example the \emph{Global Virtual Time}) will be mandatory. The most famous optimistic synchronization algorithms are: \emph{Time Warp}, \emph{trailing state synchronization}~\cite{Csync}~and \emph{optimistic time-bucket synchronization}~\cite{Doptbkt}.
 
-%-----------------------------------%
+%------------------------------------------------------------------------------------------------------------------------------------%
 \subsection{NDN Background}
 \label{ndnbg}
 
@@ -242,7 +242,7 @@ NDN is designed for content distribution. Two packet types exists in NDN: \emph{
 
 Note that NDN is receiver driven. Flow balance is also controlled by the receiver~\cite{Zact}. Also note that multicasting is intrinsically built in.
 
-% . . . . . . . . . . . . . . . . . . . . . . . %
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . %
 \subsubsection{CCNx Sync Protocol}
 \label{ccnsync}
 
@@ -252,8 +252,8 @@ CCNx Sync protocol should not be confused with the game synchronization protocol
 
 
 
-%====================%
-%====================%
+
+%===========================================================================%
 \section{NDN GAME DESIGN}
 \label{gamedesign}
 
@@ -263,14 +263,14 @@ CCNx Sync protocol should not be confused with the game synchronization protocol
 In this section we present game design issues that are specific to NDN games. In most places we use our game adapted from the Unity3D Car Tutorial~\cite{UnityCar} as examples but we are not restricted to this genre.
 
 
-%-----------------------------------%
+%------------------------------------------------------------------------------------------------------------------------------------%
 \subsection{P2P Game Architecture}
 
 % why did we choose P2P %
 We decided that our sample game should be P2P because of the following reasons. First, P2P architectures are scalable and robust, with minimized network latency (see \nameref{game_archi}). Second, these advantages of P2P can be further enhanced by NDN. NDN reduces traffic in the network, which means that given the same bandwidth, more players could join the game. With data packets cached in the network, data receivers will enjoy a even smaller latency. Third, some of the disadvantages of P2P can be (partly) overcame by NDN. Security, for example, will be enhanced by NDN's content validation and trust management scheme. By naming contents instead of hosts, it will be more difficult for attackers to focus on their target. Several types of cheating behavior can be automatically avoided by NDN (see \nameref{discussions}). Finally, improvements on P2P architectures will also benefit the hybrid architectures. As an example, the Mirrored Game Server architecture has its clients connected to a local server, but typically orchestrates its distributed servers into a high-performance P2P network, so NDN could positively affect it in a similar way.
 
 
-%-----------------------------------%
+%------------------------------------------------------------------------------------------------------------------------------------%
 \subsection{Namespace Design}
 
 % what is a namespace %
@@ -369,8 +369,8 @@ Such name components as \url{state} can have many variations that serve differen
 
 
 
-%====================%
-%====================%
+
+%===========================================================================%
 \section{Synchronization}
 \label{sync}
 
@@ -378,7 +378,7 @@ The purpose of synchronization is to maintain consistent views of the global gam
 
 We divide the problem of synchronizing the game tree into three sub-problems: Asset synchronization, State synchronization and Event synchronization. We recognize nodes in the game tree as \emph{asset}s, \emph{state} and \emph{event}s and use choose different strategies to synchronize them. The idea behind such a division is that assets, state and events have different requirements for synchronization.
 
-%-----------------------------------%
+%------------------------------------------------------------------------------------------------------------------------------------%
 \subsection{Asset, State and Event}
 \label{ase}
 
@@ -399,11 +399,14 @@ Asset, state and event are correlated and they model changes and happenings in t
 
 
 
-%-----------------------------------%
+%------------------------------------------------------------------------------------------------------------------------------------%
 \subsection{Asset Synchronization}
 \label{assetsync}
 
 Asset synchronization maintains the consistency of all assets. In the game tree, it is in charge of synchronizing all nodes colored blue. By definition, if all asset names are known then the entire game tree became know, as state and events' existence are predictable. Therefore, asset synchronization is also called \emph{name discovery}.
+
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . %
+\subsubsection{An Unordered Mechanism}
 
 % reason for FIFO processing order %
 Assets' requirement for consistency is relatively low. Updates about assets can be processed in a FIFO order -- they do not have to be delayed and sorted by their generation time before being processed. The reason comes three folds. First, assets can only be \emph{created} or \emph{destroyed} during their life time. Second, assets are predefined in a game so they will never change once created. The state of an asset will change, but this will not affect the definition of the asset (its name, structure, attributes etc.). Third, by definition, assets are independent of each other. These features make synchronization of assets very similar to synchronizing a directory of files, without caring about the content of those file content.  Files are also dynamic, independent objects whose content can be regarded as merely ``state''s. In file synchronization, the order of which files are added or removed is not important -- as long as a directory shows the right files, it is consistent. The same applies for asset synchronization.
@@ -414,7 +417,8 @@ Asset synchronization relies heavily on the CCNx Sync protocol. When a peer init
 % Adding an asset %
 
 % Deleting an asset %
-
+% by writing an anti asset
+% an anti asset cannot be have an anti asset
 
 % define "namespace discovery" %
 % In order for gamers to play in the same virtual world, a game application must have a global namespace to which each player must contribute (the player information, and objects created during runtime). Moreover, each player should synchronize his/her local namespace with the global namespace. We term the process of a player learning about the global namespace \emph{``name discovery''}. 
@@ -434,64 +438,128 @@ Asset synchronization relies heavily on the CCNx Sync protocol. When a peer init
 % We borrow the term \emph{asset} from game developers to refer to virtual characters and artifacts. An asset can have many attributes, which may change from time to time. A \emph{state} is a snapshot of an attribute. Assets are often first-level entities in games -- they do not belong to any other asset and have their own 3D model, rigid body and animations. A game asset that \emph{does} have an owner will not be considered as an asset here, but as a potential attribute state of its owner. For example, a Glock in a first person shooting game will become the state of an attribute called ``weapon'' when it is selected by the character. \emph{Events} are initiated by assets. They correspond to actions of characters (walk, shoot, buy etc.). An event may result in either asset change (a brick wall get destroyed after an explosion) or state change (an enemy's life is shortened after an attack). Event synchronization might be desirable in many games. However, we do not explicitly synchronize events in our sample game because their effect is already in sync. 
 
 
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . %
+\subsubsection{Managing Assets}
+% every asset has an interaction scope
 
-%-----------------------------------%
+% the creator chooses a manager for a new asset
+% the manager cannot be the creator
+% the manager should be far enough from the interaction scope
+
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . %
+\subsubsection{Propagation Model and Efficiency}
+
+
+
+
+%------------------------------------------------------------------------------------------------------------------------------------%
 \subsection{State Synchronization}
 \label{statesync}
+% Task: sync the red nodes
 
-%-----------------------------------%
+% The state of an asset can only be published by its manager
+
+
+
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . %
+\subsubsection{An Ordered Mechanism with Misses}
+% why state should be in the right order %
+% why state can be missed: one will only miss other's state, which will be updated soon%
+
+% how does the mechanism work: everyone registers for "state" of everyone
+% increasing exclusion filter guarantees the right order
+% rightmost child guarantees to get the freshest state, but might cause state miss
+
+
+
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . %
+\subsubsection{Bandwidth Consumption}
+% state generates the most traffic
+% interests aggregate
+% content propagate
+
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . %
+\subsubsection{Distribution Efficiency}
+% all interests pending
+% efficiency higher than asset sync
+
+
+%------------------------------------------------------------------------------------------------------------------------------------%
 \subsection{Event Synchronization}
 \label{eventsync}
+% Task: to synchronize the yellow nodes
+
+% events is a special type of state
+% Only the manager could publish events
 
 
-%====================%
-%====================%
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . %
+\subsubsection{An Ordered Mechanism with No Miss}
+% why events should be ordered: hit and heal
+% why there should be no miss: heal and hit
+
+% how do we ensure that there is no miss? we use sequence number
+
+% but then, the order is broken, so we rollback when necessary
+
+% what is the earliest time an asset should rollback? Local Virtual Time
+
+% A critical event is an event that causes asset change
+% writing the anti asset should be delayed
+
+
+
+
+
+%===========================================================================%
 \section{IMPLEMENTATION}
 \label{implementation}
 
 
 
-%====================%
-%====================%
+%===========================================================================%
 \section{DISCUSSIONS}
 \label{discussions}
 
-%-----------------------------------%
-\subsection{Bandwidth Comsumption}
+%------------------------------------------------------------------------------------------------------------------------------------%
+\subsection{Bandwidth Consumption}
 
-%-----------------------------------%
+%------------------------------------------------------------------------------------------------------------------------------------%
 \subsection{Scalability}
 
-%-----------------------------------%
+%------------------------------------------------------------------------------------------------------------------------------------%
 \subsection{Security}
+% attacking will be harder, since it's difficult to target
 
-%-----------------------------------%
+%------------------------------------------------------------------------------------------------------------------------------------%
 \subsection{Cheating Avoidance}
+%Trudy claims that she picked the helmet but the helmet didn't say so: when anti helmet was written into the repo, its content object should be "I was picked by Alice"
 
-%====================%
-%====================%
+% Trudy publishes other untrue state: "Bob healed me, so my HP should increase" --
+
+% " I just killed zombie0 so my Gold should increase" -- similar to our helmet's case
+
+%===========================================================================%
 \section{RELATED WORK}
 \label{relatedwork}
 
-%====================%
-%====================%
+
+
+
+%===========================================================================%
 \section{CONCLUSIONS}
 \label{conclusions}
 
-%====================%
-%====================%
-\section{ACKNOLEDGEMENTS}
-
-We thank CHI, PDC and CSCW volunteers, and all publications support
-and staff, who wrote and provided helpful comments on previous
-versions of this document.  Some of the references cited in this paper
-are included for illustrative purposes only.  \textbf{Don't forget
-to acknowledge funding sources as well}, so you don't wind up
-having to correct it later.
 
 
-%====================%
-%====================%
+
+%===========================================================================%
+\section{ACKNOWLEDGEMENTS}
+
+
+
+
+%===========================================================================%
 \balance
 % If you want to use smaller typesetting for the reference list,
 % uncomment the following line:

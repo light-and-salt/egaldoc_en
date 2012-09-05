@@ -1,0 +1,32 @@
+\BOOKMARK [1][-]{section*.3}{Introduction}{}% 1
+\BOOKMARK [1][-]{section*.4}{BACKGROUND}{}% 2
+\BOOKMARK [2][-]{section*.5}{Game Design Background}{section*.4}% 3
+\BOOKMARK [3][-]{section*.6}{Game Architectures}{section*.5}% 4
+\BOOKMARK [3][-]{section*.7}{Synchronization Mechanisms}{section*.5}% 5
+\BOOKMARK [2][-]{section*.8}{NDN Background}{section*.4}% 6
+\BOOKMARK [3][-]{section*.9}{CCNx Sync Protocol}{section*.8}% 7
+\BOOKMARK [1][-]{section*.10}{NDN GAME DESIGN}{}% 8
+\BOOKMARK [2][-]{section*.11}{P2P Game Architecture}{section*.10}% 9
+\BOOKMARK [2][-]{section*.12}{Namespace Design}{section*.10}% 10
+\BOOKMARK [1][-]{section*.13}{Synchronization}{}% 11
+\BOOKMARK [2][-]{section*.14}{Asset, State and Event}{section*.13}% 12
+\BOOKMARK [2][-]{section*.15}{Asset Synchronization}{section*.13}% 13
+\BOOKMARK [3][-]{section*.16}{An Unordered Mechanism}{section*.15}% 14
+\BOOKMARK [3][-]{section*.17}{Managing Assets}{section*.15}% 15
+\BOOKMARK [3][-]{section*.18}{Propagation Model and Efficiency}{section*.15}% 16
+\BOOKMARK [2][-]{section*.19}{State Synchronization}{section*.13}% 17
+\BOOKMARK [3][-]{section*.20}{An Ordered Mechanism with Misses}{section*.19}% 18
+\BOOKMARK [3][-]{section*.21}{Bandwidth Consumption}{section*.19}% 19
+\BOOKMARK [3][-]{section*.22}{Distribution Efficiency}{section*.19}% 20
+\BOOKMARK [2][-]{section*.23}{Event Synchronization}{section*.13}% 21
+\BOOKMARK [3][-]{section*.24}{An Ordered Mechanism with No Miss}{section*.23}% 22
+\BOOKMARK [1][-]{section*.25}{IMPLEMENTATION}{}% 23
+\BOOKMARK [1][-]{section*.26}{DISCUSSIONS}{}% 24
+\BOOKMARK [2][-]{section*.27}{Bandwidth Consumption}{section*.26}% 25
+\BOOKMARK [2][-]{section*.28}{Scalability}{section*.26}% 26
+\BOOKMARK [2][-]{section*.29}{Security}{section*.26}% 27
+\BOOKMARK [2][-]{section*.30}{Cheating Avoidance}{section*.26}% 28
+\BOOKMARK [1][-]{section*.31}{RELATED WORK}{}% 29
+\BOOKMARK [1][-]{section*.32}{CONCLUSIONS}{}% 30
+\BOOKMARK [1][-]{section*.33}{ACKNOWLEDGEMENTS}{}% 31
+\BOOKMARK [1][-]{section*.34}{REFERENCES }{}% 32
