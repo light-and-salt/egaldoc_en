@@ -1,0 +1,53 @@
+This is BibTeX, Version 0.99d (TeX Live 2011)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: egal.aux
+The style file: acmsigchi.bst
+Database file #1: sample.bib
+Warning--to sort, need author or key in CCNxSync
+Warning--to sort, need author or key in UnityCar
+Warning--to sort, need author or key in CCNxCS
+Warning--empty institution in Bryant
+Warning--empty school in Fgame
+Warning--empty journal in Zact
+You've used 13 entries,
+            2243 wiz_defined-function locations,
+            608 strings with 5781 characters,
+and the built_in function-call counts, 3590 in all, are:
+= -- 359
+> -- 123
+< -- 0
++ -- 54
+- -- 40
+* -- 235
+:= -- 562
+add.period$ -- 35
+call.type$ -- 13
+change.case$ -- 59
+chr.to.int$ -- 0
+cite$ -- 19
+duplicate$ -- 136
+empty$ -- 320
+format.name$ -- 40
+if$ -- 773
+int.to.chr$ -- 0
+int.to.str$ -- 13
+missing$ -- 8
+newline$ -- 64
+num.names$ -- 20
+pop$ -- 78
+preamble$ -- 1
+purify$ -- 46
+quote$ -- 0
+skip$ -- 104
+stack$ -- 0
+substring$ -- 229
+swap$ -- 31
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 52
+warning$ -- 6
+while$ -- 32
+width$ -- 15
+write$ -- 123
+(There were 6 warnings)
