@@ -105,6 +105,7 @@ breaklinks=true,
 %===========================================================================%
 \begin{abstract}
 %
+
 \end{abstract}
 
 \keywords{}
@@ -297,7 +298,7 @@ Namespace designing is a task specific to NDN application developers. A complete
 \begin{tikzpicture} [scale=0.8, transform shape]
     \tikzstyle{every node}=[align = center]
     \tikzstyle{level 1} = [sibling distance=30mm]
-    \node {/ndn/broadcast/Egal \\ /Car/[SceneID]}
+    \node {/ndn/broadcast \\ /Car/[SceneID]}
         child { node {\%C1.S.ra} 
         		child { node {$<$slicehash$>$} 
 			child { node {$<$roothash$>$} }
@@ -317,12 +318,12 @@ Namespace designing is a task specific to NDN application developers. A complete
 {
 \begin{tikzpicture} [scale=0.8, transform shape]
     \tikzstyle{every node} = [align=center]
-    \tikzstyle{asset} = [fill=cyan!20]
-    \tikzstyle{state} = [fill=magenta!20]
-    \tikzstyle{event} = [fill=orange!20]
+    \tikzstyle{asset} = [fill=cyan!15]
+    \tikzstyle{state} = [fill=magenta!15]
+    \tikzstyle{event} = [fill=orange!15]
     \tikzstyle{level 1} = [sibling distance=40mm]
     \tikzstyle{level 2} = [sibling distance=18mm]
-    \node {/ndn/ucla.edu/apps \\ /Egal/Car/[SceneID]}
+    \node {/ndn/ucla.edu/apps \\ /Car/[SceneID]}
         child{ node [asset] {anti}
         		child { node [asset] {...}}
         }
@@ -593,7 +594,9 @@ When a critical event happens, its resulting asset change should be delayed for 
 %===========================================================================%
 \section{IMPLEMENTATION}
 \label{implementation}
+\def\tm{\leavevmode\hbox{$\rm {}^{TM}$}} %注册符 网上找的
 
+We implemented asset, state and event synchronization in both C and C\#. We organize these functions in our \emph{Egal} library which can be reused by future programers. Moreover, we wrapped the Egal library as a Unity3D\tm~Pro plugin so that it can provide some direct support for Unity\tm~programmers. Last but not least, we adapted Unity\tm's Car Racing Tutorial~\cite{UnityCar}~into a P2P multiplayer on-line game running over NDN.
 
 
 
@@ -612,6 +615,7 @@ When a critical event happens, its resulting asset change should be delayed for 
 %------------------------------------------------------------------------------------------------------------------------------------%
 \subsection{Security}
 % attacking will be harder, since it's difficult to target
+Thanks to NDN, network security for games is enhanced. Spoofing has become more difficult, as NDN requires all content packets to be signed. Attacking a specific host will be much more difficult than it was before, since NDN does not talk about hosts, but about contents, so attackers will find it hard to direct their packets to their target.
 
 %------------------------------------------------------------------------------------------------------------------------------------%
 \subsection{Cheating Avoidance}
@@ -621,7 +625,9 @@ When a critical event happens, its resulting asset change should be delayed for 
 
 % " I just killed zombie0 so my Gold should increase" -- similar to our helmet's case
 
+Content objects representing assets have the extra functionality of preventing cheating besides providing initialization information for new assets. The fact that these content objects will remain static in every peer's local repository should be exploited for optimal use. One example utilizing these content to prevent cheating involves binding assets with their managers by writing such bound as the data of an asset name. In this way, all state and event updates received can be easily authenticated by individual peers since the whole mapping from assets to their managers is stored in the synchronized repository. 
 
+Content of anti-assets can also be used to prevent spoofing in some cases. The destruction of an asset often bring benefits to some players. For example, the destruction of a helmet often means that some player has picked it, and the destruction of a zombie often means that some player's experience has increased. To prevent players from spoofing, such as claiming that they have just killed a zombie while they have actually not done so, we can quote or write the critical event that directly causes the an asset's destruction in the content data of the anti-asset. Since anti-assets are propagated and stored throughout the network just as assets are, the spoofing behavior mentioned above will soon be detected. 
 
 
 
