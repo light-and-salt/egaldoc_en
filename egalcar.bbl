@@ -1,0 +1,16 @@
+\begin{thebibliography}{1}
+
+\bibitem{Fgame}
+S.~Ferretti.
+\newblock {\em {Interactivity maintenance for event synchronization in massive
+  multiplayer online games}}.
+\newblock PhD thesis, University of Bologna, 2005.
+
+\bibitem{Jndn}
+V.~Jacobson, D.K. Smetters, and J.D. Thornton.
+\newblock Networking named content.
+\newblock In {\em Proceedings of the 5th international conference on Emerging
+  networking experiments and technologies}, CoNEXT, pages 1 -- 12, New York,
+  NY, USA, December 2009. ACM.
+
+\end{thebibliography}

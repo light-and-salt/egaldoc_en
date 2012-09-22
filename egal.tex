@@ -70,7 +70,8 @@ breaklinks=true,
 
 \begin{document}
 
-\title{Egal: Making Peer-to-Peer Games over Named Data Network}
+\title{Egal: Synchronizing Peer-to-Peer Games over Named Data Network}
+% our focus: synchronization
 
 \numberofauthors{3}
 \author{
@@ -117,19 +118,24 @@ breaklinks=true,
 
 \section{Introduction}
 \label{introduction}
-% (*gamer / player / customer / peer)    (publisher / carrier / *operator / service provider)
-% "the" is really the most difficult word in English! on "the" one hand ...
-% I mentioned security and cheating avoidance here. I'd better include them in Discussions
-% I set the importance order: consistency, scalability, security. I'd better follow this order
+% (gamer / *player / customer / peer)    (publisher / carrier / *operator / service provider)
+
+Synchronization is critical for networked games. In a shared virtual world where a large number of players are generating all kinds of inputs, it is very important that each player's view of the virtual world is \emph{consistent} with views of others. Synchronization mechanisms are designed to maintain such consistency but they can also profoundly affect the game's overall performance such as  the game's interactivity, scalability and so on. Because it is so complex and influential in the game industry, synchronization has received close attention from the academia since the rise of networked computer games.
+
+This paper put the synchronization problem in the context of Named Data Network (NDN)~\cite{Jndn}. 
+
+%Requirements of massive multiplayer online games (MMOG) have been rising. In this paper, we place the problem of game design in the context of Named Data Network (NDN) and discuss about improving game performance from the network's point of view. In particular, we advocate the use of Peer-to-Peer (P2P) game architectures and proposed our own synchronization mechanism for NDN P2P MMOGs.
+
+%One way to improve the overall performance (scalability, interactivity, latency) of MMOGs is to use Peer-to-Peer (P2P) game architectures instead of the widely-used Client \/ Server architectures. However, P2P architectures usually need a special synchronization mechanism, which introduces additional delays. 
 
 % Requirements of Networked Games %
-Requirements of massive multiplayer online games (MMOG) from both operators and gamers have been rising. On the one hand, gamers like games that are \emph{interactive}: games should be responsive to user input, and ideally should provide multiple channels for inter-person communication. On the other hand, gamers equally care about \emph{consistency}: all participants should have an equal understanding of the game state at any time, unless it is decided by the game rules. Few customers would be glad if they were told that \emph{interactivity} and \emph{consistency} are two contradicting requirements, though it is indeed the case. To make things worse, requirements from operators are no less complex than those from gamers. First, they want the game system to be \emph{scalable}: service quality should not fall dramatically when the number of gamers is large or is rapidly growing. Second, bandwidth consumption should be minimized for financial reasons. Third, just like any service providers they want a \emph{security} model to survive from attacks. Finally, game operators specially want to \emph{avoid cheating} on behalf of honest gamers.
+%Requirements of massive multiplayer online games (MMOG) from both operators and gamers have been rising. On the one hand, gamers like games that are \emph{interactive}: games should be responsive to user input, and ideally should provide multiple channels for inter-person communication. On the other hand, gamers equally care about \emph{consistency}: all participants should have an equal understanding of the game state at any time, unless it is decided by the game rules. Few customers would be glad if they were told that \emph{interactivity} and \emph{consistency} are two contradicting requirements, though it is indeed the case. To make things worse, requirements from operators are no less complex than those from gamers. First, they want the game system to be \emph{scalable}: service quality should not fall dramatically when the number of gamers is large or is rapidly growing. Second, bandwidth consumption should be minimized for financial reasons. Third, just like any service providers they want a \emph{security} model to survive from attacks. Finally, game operators specially want to \emph{avoid cheating} on behalf of honest gamers.
 
 % NDN Features %
-In~\cite{Jndn}~the authors proposed \emph{Contnet-Centric Network} (CCN) or \emph{Named Data Network} (NDN), a second generation Internet architecture that reduces network traffic and achieves scalability, security and performance simultaneously (see section \nameref{ndnbg}). NDN treats content as a primitive in stead of location, and retrieves a content by its name instead of its IP address. By making use of web cache, NDN improves content distribution efficiency and reduces traffic. Its one-for-one flow control gives the network scalability and adaptability. Security is embodied in content, which is more trustworthy than securing connections and hosts.
+%In~\cite{Jndn}~the authors proposed \emph{Contnet-Centric Network} (CCN) or \emph{Named Data Network} (NDN), a second generation Internet architecture that reduces network traffic and achieves scalability, security and performance simultaneously (see section \nameref{ndnbg}). NDN treats content as a primitive in stead of location, and retrieves a content by its name instead of its IP address. By making use of web cache, NDN improves content distribution efficiency and reduces traffic. Its one-for-one flow control gives the network scalability and adaptability. Security is embodied in content, which is more trustworthy than securing connections and hosts.
 
 % Motivations of the Paper %
-Because NDN has these appealing features, we would like to explore its capability of solving game-related problems. We developed the Egal library which is a C\# wrapper of native NDN code and would allow for fast prototyping. Using the library, we adapted an open source car racing game into a peer-to-peer NDN game. Meanwhile, we studied the requirements of consistency, scalability and security in the context of NDN. Our experience would work as an example for future NDN game designers and our library could be reused by future developers.
+%Because NDN has these appealing features, we would like to explore its capability of solving game-related problems. We developed the Egal library which is a C\# wrapper of native NDN code and would allow for fast prototyping. Using the library, we adapted an open source car racing game into a peer-to-peer NDN game. Meanwhile, we studied the requirements of consistency, scalability and security in the context of NDN. Our experience would work as an example for future NDN game designers and our library could be reused by future developers.
 
 % About Following Sections %
 % not so sure %

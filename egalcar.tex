@@ -1,0 +1,47 @@
+\documentclass{article}
+
+\usepackage{indentfirst}
+
+\begin{document}
+
+\title{Egal Car: A Synchronized Peer-to-Peer Car Racing Game Over Named Data Networking}
+\author{Zening Qu}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+Blahblahblah
+\end{abstract}
+
+%============================================================================%
+\section{Introduction}
+\label{introduction}
+
+One of the most important differences between a multiplayer on-line game (MOG) and a single player game is that in the former case there exists a virtual world that needs to be shared and maintained \emph{consistent}. Consistency maintenance is about guaranteeing that all players in the shared virtual world will have correct understanding of it. For example, in a game that provides a global view to its players, everyone should be able to view the position of all other players in real time, and there should not be any collision between any two views. 
+
+Synchronization mechanisms are fundamental to consistency maintenance. In a MOG where players are usually distributed in a wide geographic area, delivery of game state updates relies solely on the packets transmitted through the network. If the lower layers only provide connectionless services, which is highly possible since MOGs typically use IP and UDP, it can be imagined that those packet updates will be out of order when received by players. This is a potential hazard to MOGs because normally game state updates should be processed in the order of their generation time in order for players to learn the chronological and causal relationship between updates. If packets were not processed in the correct order, different players would have different understanding of the game state. In other words, \emph{inconsistency} would arise. A synchronization mechanism avoids inconsistency by making sure that all players process update packets in the correct order (see section~\ref{background}). With a synchronization mechanism every copy of the game application receives consistent input from the network, therefore their outputs will be consistent, too.
+\footnote{Note that game state consistency can also be achieved by using connection-oriented protocols such as TCP in the lower layers. However, research has shown that such protocols may result in severe performance degradation and thus are rarely used by MOGs~\cite{Fgame}.}
+
+This paper documents a simple synchronization mechanism that we designed for MOGs over named data network (NDN)~\cite{Jndn}. NDN is a new Internet architecture that can be viewed as an alternative of TCP\slash IP. 
+
+the design of a synchronized Peer-to-Peer (P2P) car racing game over named data network (NDN)~\cite{Jndn}. We adapted an open source single player car racing game into a MOG that runs over NDN. 
+% gameplay
+
+% meaning
+%============================================================================%
+\section{Background}
+\label{background}
+
+%============================================================================%
+\section{Future Work}
+\label{futurework}
+
+%============================================================================%
+\section{Conclusions}
+\label{conclusions}
+
+%============================================================================%
+\bibliographystyle{plain}
+\bibliography{sample}
+
+\end{document}
