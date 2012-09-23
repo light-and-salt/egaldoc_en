@@ -1,5 +1,10 @@
 \begin{thebibliography}{1}
 
+\bibitem{CCNxSync}
+{CCNx\textregistered~Synchronization Protocol}.
+\newblock
+  \url{http://www.ccnx.org/releases/latest/doc/technical/SynchronizationProtocol.html}.
+
 \bibitem{Fgame}
 S.~Ferretti.
 \newblock {\em {Interactivity maintenance for event synchronization in massive
@@ -12,5 +17,16 @@ V.~Jacobson, D.K. Smetters, and J.D. Thornton.
 \newblock In {\em Proceedings of the 5th international conference on Emerging
   networking experiments and technologies}, CoNEXT, pages 1 -- 12, New York,
   NY, USA, December 2009. ACM.
+
+\bibitem{UnityCar}
+{Unity\tm~Car Tutorial}.
+\newblock \url{http://unity3d.com/support/resources/tutorials/car-tutorial}.
+
+\bibitem{Scheating}
+S.D. Webb and S.~Soh.
+\newblock Cheating in networked computer games: a review.
+\newblock In {\em Proceedings of the 2nd international conference on Digital
+  interactive media in entertainment and arts}, DIMEA, pages 105 -- 112, New
+  York, NY, USA, 2007. ACM.
 
 \end{thebibliography}
