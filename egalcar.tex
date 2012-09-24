@@ -54,7 +54,7 @@ NDN differs from IP in that every piece of NDN data can have a \emph{name} that 
 \end{figure}
 
 % introduce CCNx and Sync
-There are a few general purpose synchronization protocols under development. Among them is the CCNx Synchronization Protocol~\cite{CCNxSync} (CCNx Sync). CCNx\textregistered~is an implementation of NDN and open source project of PARC\textregistered. CCNx Sync is a facility provided by the CCNx project to help applications to maintain data integrity. It should be noted that, CCNx Sync, and other general purpose synchronization protocols are different from the game synchronization mechanisms that we mentioned in section~\ref{introduction}. The former class of protocols maintains data integrity while the later class ensures game state consistency. Nevertheless, CCNx Sync can be utilized by MOGs in many situations. In fact, through our experiment we found that CCNx Sync brings lots of conveniences to MOG development. We demonstrate the use of CCNx Sync in Egal Car in section~\ref{namespace}~and~\ref{synchronization}.
+There are a few general purpose synchronization protocols under development. Among them is the CCNx Synchronization Protocol~\cite{CCNxSync} (CCNx Sync). CCNx\textregistered~is an implementation of NDN and open source project of PARC\textregistered. CCNx Sync is a facility provided by the CCNx project to help applications to maintain data integrity. It should be noted that, CCNx Sync, and other general purpose synchronization protocols are different from the game synchronization mechanisms that we mentioned in section~\ref{introduction}. The general purpose protocols maintain data integrity while the game protocols ensure game state consistency. Nevertheless, CCNx Sync can be utilized by MOGs in many situations. In fact, through our experiment we found that CCNx Sync brings lots of conveniences to MOG development. We demonstrate the use of CCNx Sync in Egal Car in section~\ref{synchronization}.
 
 
 %============================================================================%
@@ -64,10 +64,6 @@ There are a few general purpose synchronization protocols under development. Amo
 When designing the network module of a MOG, the first decision that should be made is what architecture the MOG should use. Game architecture is a defining factor of the game's scalability, robustness and performance, and it has a fundamental influence on other game design choices such as the choice of synchronization mechanisms. As the network transmission strategy has changed in NDN, the preference of game architectures may also change.
 
 There are two classes of game architectures, Client\slash Server (\cs) and Peer-to-Peer (P2P). In \cs~architectures all clients are directly connected to a central server which is the only authorized source of game state updates (see figure~\ref{cs}). In P2P architectures, peers (clients) are inter-connected and each peer computes newer game state on its own (see figure~\ref{p2p}). 
-
-It is widely agreed that P2P architectures outperforms \cs~in scalability, latency and robustness~\cite{Fgame, Scheating}, however, in IP networks P2P is not as popular as \cs~architectures. The factors that make P2P less desirable in the IP network are as follows. First, P2P games usually have higher bandwidth requirements than \cs~games do. In game communications a common scenario is that every player wants to exchange packets with all other players. For example, in Egal Car, every car wants to know the position of all other players, and it also want its own position to be known by others. In a P2P network this would generate an enormous amount of traffic but in a \cs~network the traffic will be alleviated because the server plays the role of an ``information center'' and each player communicate with all other players by exchanging a few packets with the server. Note that the traffic of P2P games could be alleviated by multicasting. Unfortunately, multicasting is not widely available in IP networks~\cite{Fgame} because IP is host-to-host in its nature. Second, due to the lack of an authority in P2P architectures, player authentication becomes harder while cheating becomes easier~\cite{Scheating}.
-
-Despite being less popular than \cs~in the IP world, P2P is chosen by us for our prototype Egal Car. In NDN, P2P architectures have actually become much more desirable since NDN largely alleviates network traffic from the lower layer. NDN is intrinsically multicasting, and it guarantees that every piece of content (data) will go through a link for at most once. These makes P2P's bandwidth requirement comparable to that of \cs. Although problems with authentication and anti-cheating may still exist, the advantages of P2P architectures (smaller latency, better scalability and robustness) greatly outweigh its disadvantages. Another reason that we prefer P2P over \cs~is that the star topology of \cs~architectures (as shown in figure~\ref{cs}) cannot fully exploit the advantages of NDN's communication model. NDN reduces traffic by making use of the web cache. In P2P architectures, after a peer has obtained a certain piece of data, other peers who are close to that peer in the physical world might benefit from this fact as they may request a quick copy of the data from the previous peer's web cache instead of waiting for the same data to be sent from data publisher. The same thing will not happen in \cs~architectures, as there is no direct connection between any two clients and NDN cannot alleviate traffic for such topology.
 
 \begin{figure} 
 \centering  
@@ -115,17 +111,29 @@ Despite being less popular than \cs~in the IP world, P2P is chosen by us for our
 \caption{\cs~architecture and P2P architecture}
 \end{figure}
 
+It is widely agreed that P2P architectures outperforms \cs~in scalability, latency and robustness~\cite{Fgame, Scheating}, however, in IP networks P2P is not as popular as \cs~architectures. The factors that make P2P less desirable in the IP network are as follows. First, P2P games usually have higher bandwidth requirements than \cs~games do. In game communications a common scenario is that every player wants to exchange packets with all other players. For example, in Egal Car, every car wants to know the position of all other players, and it also want its own position to be known by others. In a P2P network this would generate an enormous amount of traffic but in a \cs~network the traffic will be alleviated because the server plays the role of an ``information center'' and each player communicate with all other players by exchanging a few packets with the server. Note that the traffic of P2P games could be alleviated by multicasting. Unfortunately, multicasting is not widely available in IP networks~\cite{Fgame} because IP is host-to-host in its nature. Second, due to the lack of an authority in P2P architectures, player authentication becomes harder while cheating becomes easier~\cite{Scheating}.
+
+Despite being less popular than \cs~in the IP world, P2P is chosen by us for our prototype Egal Car. In NDN, P2P architectures have actually become much more desirable since NDN largely alleviates network traffic from the lower layer. NDN is intrinsically multicasting, and it guarantees that every piece of content (data) will go through a link for at most once. These makes P2P's bandwidth requirement comparable to that of \cs. Although problems with authentication and anti-cheating may still exist, the advantages of P2P architectures (smaller latency, better scalability and robustness) greatly outweigh its disadvantages. Another reason that we prefer P2P over \cs~is that the star topology of \cs~architectures (as shown in figure~\ref{cs}) cannot fully exploit the advantages of NDN's communication model. NDN reduces traffic by making use of the web cache. In P2P architectures, after a peer has obtained a certain piece of data, other peers who are close to that peer in the physical world might benefit from this fact as they may request a quick copy of the data from the previous peer's web cache instead of waiting for the same data to be sent from data publisher. The same thing will not happen in \cs~architectures, as there is no direct connection between any two clients and NDN cannot alleviate traffic for such topology.
+
+Once the game architecture choice is made, one can start considering the other design issues of the network module such as the synchronization mechanism. To see why game architectures would affect other game design issues, one can consider the following example. In different architectures, the content of packets being transmitted would be different. In \cs~architectures, clients should always send user inputs to the server and let the server compute the result of the input. A client should never compute the result on its own because it has neither the right to compute the next game state nor the information that is sufficient for it to do so. For instance, instead of claiming ``I am three blocks away from my last position now'', a client should only tell the server ``I want to move three blocks to the north-east'' and let the server confirm its new position. On the contrary, in P2P architectures every peer has the right and the information to compute the next game state. This gives some extra freedom to each peer in deciding what to send to the other peers. A peer can choose to send out user inputs, just like a client in the \cs~architecture would, or he/she can choose to send out the result of his/her inputs and ask the other peers to update their information. The later approach is adopted in Egal Car for synchronizing each car's position information (see section~\ref{synchronization}).
+
 %============================================================================%
 \section{Synchronization}
 \label{synchronization}
 
-Once the game architecture choice is made, one can start considering the other design issues of the network module such as the synchronization mechanism. We propose two synchronization strategies, asset synchronization and state synchronization, that can be used as a combined mechanism by P2P MOGs over NDN. Our approach has three steps: first, identify all data that needs to be synchronized and collect those data names in a set; second, classify those names as either \emph{asset} names or \emph{state} names; third, apply the corresponding synchronization strategies to the two classes of data.
+We propose two synchronization strategies, asset synchronization and state synchronization, that can be used as a combined mechanism by P2P MOGs over NDN. Our approach has three steps: first, identify all data that needs to be synchronized; second, classify these data as either \emph{asset} or \emph{state}; third, use asset synchronization to synchronize assets and use state synchronization to synchronize state.
 
 %-------------------------------------------------------------------------------------------------------------------------------------%
 \subsection{Namespace}
 \label{namespace}
-% Tree x 3
-Namespace designing is a development process that is specific to NDN applications. A complete namespace of a program is a collection of all names that will be used by the Interest and Data packets being exchanged during the program's execution. Since NDN names are composed of components, we can present names as trees by treating its components as tree nodes. Names of the same application usually share the same prefix, which means a name tree can present a large collection of names (with the shared prefix being the root node of the name tree). The namespace of an application is usually consisted of several of these name trees.
+
+The first two steps of our approach mentioned above involves namespace design. A \emph{namespace} is a full collection of names that will be used for packet exchange during a program's execution. In our case, the namespace is consisted of all names that need to be synchronized plus names of packets that are designed for synchronization. 
+
+We can start to construct our namespace by analyzing which classes of MOG data (objects) need to be kept in sync. According to~\cite{Upen}, a virtual world is typically made up of immutable elements (terrain) and mutable elements (players, non-player characters, mutable objects, mutable landscape). The immutable elements should be installed before game execution. Information about the mutable elements should be synchronized in real time. In Egal Car, the terrain and the track are installed while information about players (cars) are synchronized.
+
+When the data to be synchronized is determined, the next step is to identify it as asset or state. This is based on an observation that different data ``behaves'' differently in MOGs and often have different requirements for synchronization. In Egal Car, information about player login and logout is identified as assets and information about a car's position and rotation is identified as state. Assets tend to be more persistent. After a player's login has been announced, this information does not need to be updated until that player logs out (or becomes disconnected due to network failure). The time interval between asset updates may be measured by seconds or even minutes. State, however, tend to be more transient. A car's position, for example, trend to change continuously. A packet containing a car's position information can be dated shortly after its generation.
+
+% Namespace designing is a development process that is specific to NDN applications. A complete namespace (such as in figure~\ref{img:namespace}) of a program is a collection of all names that will be used by the Interest and Data packets being exchanged during the program's execution. Since NDN names are composed of components, we can present names as trees by treating its components as tree nodes. Names of the same application usually share the same prefix, which means a name tree can denote a large collection of names (with the shared prefix being the root node of the name tree). The namespace of an application is usually consisted of several of these name trees. Egal Car, for example, has three trees in its namespace.
 
 \begin{figure}
 \begin{center}
@@ -137,7 +145,6 @@ Namespace designing is a development process that is specific to NDN application
         child { node {\%C1.S.cs} 
         		child{ node {$<$slicehash$>$} }
         }
-       
     ;
 \end{tikzpicture}
 \label{repo}
@@ -188,14 +195,13 @@ Namespace designing is a development process that is specific to NDN application
         } 
          child { node [asset] {[ResourceID]}
         		child {node [event] {events}} }
-        
     ;
 \end{tikzpicture}
 \label{game}
 }
 \end{subfigure}
 \caption[Caption for LOF]{The Namespace of Egal Car\footnotemark}
-\label{namespace}
+\label{img:namespace}
 \end{center}
 \end{figure}
 \footnotetext{Colors of the nodes will be explained in []. Nodes surrounded by $< >$ will be generated at run time using algorithms chosen by NDN. Nodes surrounded by $[ ]$ are variables that will be substituted with multiple values. Note that \slash~are not part of NDN names, they are for illustration purpose only.}

@@ -18,6 +18,13 @@ V.~Jacobson, D.K. Smetters, and J.D. Thornton.
   networking experiments and technologies}, CoNEXT, pages 1 -- 12, New York,
   NY, USA, December 2009. ACM.
 
+\bibitem{Upen}
+B.~Knutsson, H.~Lu, W.~Xu, and B.~Hopkins.
+\newblock Peer-to-peer support for massively multiplayer games.
+\newblock In {\em Twenty-third AnnualJoint Conference of the IEEE Computer and
+  Communications Societies}, volume~1 of {\em INFOCOM}, pages xxxv+2866, March
+  2004.
+
 \bibitem{UnityCar}
 {Unity\tm~Car Tutorial}.
 \newblock \url{http://unity3d.com/support/resources/tutorials/car-tutorial}.
