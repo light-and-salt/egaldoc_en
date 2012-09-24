@@ -1,5 +1,10 @@
 \begin{thebibliography}{1}
 
+\bibitem{CCNxCS}
+{CCNx\textregistered~Create Collection Protocol}.
+\newblock
+  \url{http://www.ccnx.org/releases/latest/doc/technical/CreateCollectionProtocol.html}.
+
 \bibitem{CCNxSync}
 {CCNx\textregistered~Synchronization Protocol}.
 \newblock
