@@ -1,4 +1,9 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{Bryant}
+R.E. Bryant.
+\newblock Simulation of packet communication architecture computer systems.
+\newblock Technical report, Cambridge, MA, USA, 1977.
 
 \bibitem{CCNxCS}
 {CCNx\textregistered~Create Collection Protocol}.
@@ -10,11 +15,36 @@
 \newblock
   \url{http://www.ccnx.org/releases/latest/doc/technical/SynchronizationProtocol.html}.
 
+\bibitem{Chandy}
+K.M. Chandy and J.~Misra.
+\newblock Distributed simulation: A case study in design and verification of
+  distributed programs.
+\newblock {\em Software Engineering, IEEE Transactions on}, 5(5):440 -- 452,
+  September 1979.
+
+\bibitem{Csync}
+E.~Cronin, A.R. Kurc, B.~Filstrup, and S.~Jamin.
+\newblock An efficient synchronization mechanism for mirrored game
+  architectures.
+\newblock {\em Multimedia Tools and Applications}, 23(1):7 -- 30, May 2004.
+
+\bibitem{Doptbkt}
+C.~Diot and L.~Gautier.
+\newblock A distributed architecture for multiplayer interactive applications
+  on the {Internet}.
+\newblock In {\em IEEE Network}, volume~13, pages 6 -- 15, August 1999.
+
 \bibitem{Fgame}
 S.~Ferretti.
 \newblock {\em {Interactivity maintenance for event synchronization in massive
   multiplayer online games}}.
 \newblock PhD thesis, University of Bologna, 2005.
+
+\bibitem{Flockstep}
+R.M. Fujimoto.
+\newblock Parallel and distributed simulation.
+\newblock In {\em Proceedings of Simulation Conference}, volume~1, pages 122 --
+  131, 1999.
 
 \bibitem{Jndn}
 V.~Jacobson, D.K. Smetters, and J.D. Thornton.
