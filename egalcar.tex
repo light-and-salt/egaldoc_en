@@ -6,6 +6,7 @@
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{tikz}
+\usetikzlibrary{shapes.multipart}
 \usepackage{subfigure}
 \usepackage{microtype}
 \def\tm{\leavevmode\hbox{$\rm {}^{TM}$}} %\tm
@@ -255,11 +256,43 @@ Some optimization can be done by the game application to further reduce the traf
 \section{Implementation}
 \label{implementation}
 
+%--------------------------------------------------------------------------------------------------------------------------------------%
+\subsection{Software Hierarchy}
+\label{softwarehierarchy}
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[stack/.style={rectangle split, rectangle split parts=#1,draw, anchor=center}]
+\node at (0, 0) [stack=4]  {
+\nodepart{one}Unity3D
+\nodepart{two}CCNx
+\nodepart{three}Sync
+\nodepart{four}Repository
+};
+\node at (5, 0) [stack=4]  {
+\nodepart{one}Unity3D
+\nodepart{two}CCNx
+\nodepart{three}Sync
+\nodepart{four}Repository
+};
+\draw[<->] (1, 0.25) -- (4, 0.25) node [midway, above] {Interest/Data};
+\end{tikzpicture}
+\caption{Peer Hierarchy}
+\label{hierarchy}
+\end{center}
+\end{figure}
+
+%--------------------------------------------------------------------------------------------------------------------------------------%
+\subsection{Interoping}
+\label{interoping}
+
 
 %============================================================================%
 \section{Future Work}
 \label{futurework}
 
+% interactions
+% cheating
 
 %============================================================================%
 \section{Conclusions}
