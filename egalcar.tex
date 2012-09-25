@@ -6,7 +6,7 @@
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{tikz}
-\usetikzlibrary{shapes.multipart}
+\usetikzlibrary{shapes,shadows,calc}
 \usepackage{subfigure}
 \usepackage{microtype}
 \def\tm{\leavevmode\hbox{$\rm {}^{TM}$}} %\tm
@@ -142,7 +142,7 @@ Figure~\ref{img:namespace} illustrates Egal Car's namespace, which is composed o
 \begin{subfigure} [Repository Tree]
 {
 \begin{tikzpicture} [scale=0.8, transform shape]
-    %\tikzstyle{every node}=[rectangle,draw]
+    \tikzstyle{every node}=[minimum size=6mm,				% The border:      				 ,     				 draw=black,      				% The filling:				font=\itshape					]
     \node {$<$localhost prefix$>$}
         child { node {$<$create slice command$>$} 
         		child{ node {$<$slice hash$>$} }
@@ -155,8 +155,8 @@ Figure~\ref{img:namespace} illustrates Egal Car's namespace, which is composed o
 \begin{subfigure} [Discovery Tree]
 {
 \begin{tikzpicture} [scale=0.8, transform shape]
-    \tikzstyle{every node}=[align = center]
-    \tikzstyle{level 1} = [sibling distance=40mm]
+    \tikzstyle{every node}=[align = center, minimum size=6mm,				% The border:      				,     				 draw=black,      				% The filling:				font=\itshape					]
+    \tikzstyle{level 1} = [sibling distance=50mm]
     \node {$<$broadcast prefix$>$/EgalCar}
         child { node {$<$root advise command$>$} 
         		child { node {$<$slice hash$>$} 
@@ -176,14 +176,20 @@ Figure~\ref{img:namespace} illustrates Egal Car's namespace, which is composed o
 \end{subfigure}
 \begin{subfigure} [Game Tree]
 {
-\begin{tikzpicture} [scale=0.8, transform shape]
+\begin{tikzpicture} [scale=0.8, transform shape,
+				state/.style={				% The shape:				rectangle,				% The size:      				minimum size=6mm,				% The border:      				,     				 draw=red!50!black!50,      				% The filling:
+				fill = magenta!15,				%top color=white,				%bottom color=red!50!black!20, % and something else at the bottom % Font				font=\itshape    				},
+				asset/.style={				% The shape:				rectangle,				% The size:      				minimum size=6mm,				% The border:      				,     				 draw=cyan!50!black!50,      				% The filling:
+				fill = cyan!15,				%top color=cyan!50!black!20,				%bottom color=cyan!50!black!20, % and something else at the bottom % Font				font=\itshape    				},
+				default/.style={				% The shape:				rectangle,				% The size:      				minimum size=6mm,				% The border:      				,     				 draw=black,      				% The filling:				font=\itshape    				},
+				]
     \tikzstyle{every node} = [align=center]
-    \tikzstyle{asset} = [fill=cyan!15]
-    \tikzstyle{state} = [fill=magenta!15]
-    \tikzstyle{event} = [fill=orange!15]
+   % \tikzstyle{asset} = [fill=cyan!15]
+   % \tikzstyle{state} = [fill=magenta!15]
+   % \tikzstyle{event} = [fill=orange!15]
     \tikzstyle{level 1} = [sibling distance=40mm]
     \tikzstyle{level 2} = [sibling distance=20mm]
-    \node {$<$topological prefix$>$/EgalCar}
+    \node [default] {$<$topological prefix$>$/EgalCar}
         child { node [asset] {$<$Car Name$>$/$<$random$>$} 
 		child { node [state] {transform} 
 			child{ node [state] {position} }
@@ -204,7 +210,7 @@ Figure~\ref{img:namespace} illustrates Egal Car's namespace, which is composed o
 \end{center}
 \end{figure}
 
-The Game Tree (figure~\ref{img:gametree}) collects all asset and state names. For illustration purpose we have colored asset names in blue and state names in pink. The root node is composed the game's environment information (\texttt{<topological prefix>}) and the game's name (\texttt{EgalCar}). Since Egal Car is an application developed by UCLA's team for the NDN project, we decided that our \texttt{<topological prefix>} should be \texttt{/ndn/ucla.edu/apps}. Designers of other NDN games should substitute \texttt{EgalCar} and \texttt{<topological prefix>} with their own values. The left child of the root is an asset name that denotes the existence of a car. This node (and all its child nodes) are dynamically created when a player joins in the game. Since Egal Car is a MOG, there will be more than one \texttt{<Car Name>/<random>} nodes as players discovers about each other (see~\ref{assetsynchronization}). The \texttt{<random>} component, which will be substituted by a random number during run-time, is designed in case there is a name collision in \texttt{<Car Name>}. The right child of the root node is used to mark that a certain player (car) has quitted or disconnected. From our discussion above, the \texttt{anti} node and its child nodes are all assets. The rest nodes are state names, and they are synchronized differently than assets.
+The Game Tree (figure~\ref{img:gametree}) collects all asset and state names. For illustration purpose we have colored asset names in blue and state names in red. The root node is composed the game's environment information (\texttt{<topological prefix>}) and the game's name (\texttt{EgalCar}). Since Egal Car is an application developed by UCLA's team for the NDN project, we decided that our \texttt{<topological prefix>} should be \texttt{/ndn/ucla.edu/apps}. Designers of other NDN games should substitute \texttt{EgalCar} and \texttt{<topological prefix>} with their own values. The left child of the root is an asset name that denotes the existence of a car. This node (and all its child nodes) are dynamically created when a player joins in the game. Since Egal Car is a MOG, there will be more than one \texttt{<Car Name>/<random>} nodes as players discovers about each other (see~\ref{assetsynchronization}). The \texttt{<random>} component, which will be substituted by a random number during run-time, is designed in case there is a name collision in \texttt{<Car Name>}. The right child of the root node is used to mark that a certain player (car) has quitted or disconnected. From our discussion above, the \texttt{anti} node and its child nodes are all assets. The rest nodes are state names, and they are synchronized differently than assets.
 
 In section~\ref{ndnbackground} we mentioned that CCNx Sync brings a lot of conveniences to Egal Car's development. This is indeed the case. Not only does it form a solid basis for asset synchronization, CCNx Sync also provides game discovery and player discovery functionalities intrinsically. Yet for CCNx Sync to work, two other trees (the Repository Tree and the Discovery Tree) are needed in the namespace. The Repository Tree is a collection of names for each game application to communicate with its local repository. The repository is where asset data is stored and synchronized by CCNx Sync. \texttt{<localhost prefix>}, the root node of the Repository Tree, confines the communication scope to localhost. The Discovery Tree is the collection of names used by CCNx Sync. Its root node is similar to that of the Game Tree except that it has a broadcast scope (\texttt{<broadcast prefix>}). Since CCNx Sync is used for ``discoveries'', it is very important for its packets to be broadcasted as potential data publishers may appear anywhere in the network. More details of the Repository Tree and the Discovery Tree will be provided in section~\ref{assetsynchronization}.
 
@@ -233,7 +239,7 @@ Although asset synchronization is unordered, it does need to be reliable. Alice 
 \subsection{State Synchronization}
 \label{statesynchronization}
 
-State is a snapshot of a variable. When all assets become known to the game, all state variables that should be synchronized become clear also. For example, when Alice and Bob are known to the game, then it is clear that both player's child nodes (the pink nodes of the Game Tree in figure~\ref{img:gametree}) are state that should be synchronized. 
+State is a snapshot of a variable. When all assets become known to the game, all state variables that should be synchronized become clear also. For example, when Alice and Bob are known to the game, then it is clear that both player's child nodes (the red nodes of the Game Tree in figure~\ref{img:gametree}) are state that should be synchronized. 
 
 State updates and asset updates are different and similar. On the one hand, they are different in that state updates are usually a series of content objects that share a common name while an asset update is usually a single content object with its unique name. For example, asset updates of Alice's car could be either \texttt{.../<AliceCar>/<random>} or \texttt{.../anti/<AliceCar>/<random>}. Both names represents a single content object. State updates of Alice may use this name \texttt{.../<AliceCar>/<random>/transform/position} to refer to Alice's position. Although it is just one constant name, it may actually represent a series of packets generated every hundred milliseconds. Every state update is timestamped, which is how it can be distinguished from its predecessors and successors. On the other hand, state updates and asset updates are similar in that state updates are also independent of each other. Alice and Bob's state will not affect each other: \texttt{.../<AliceCar>/<random>/transform/position} will not cause \texttt{.../<BobCar>/<random>/transform/position} to change. Note that we are not considering the case where Alice and Bob interact with each other. Such interactions will lead to players' state change but they should not be using our state model. We will provide a new model for these interactions in a future paper (see section~\ref{futurework}).
 
@@ -256,36 +262,85 @@ Some optimization can be done by the game application to further reduce the traf
 \section{Implementation}
 \label{implementation}
 
+Egal Car is developed with Unity, a top-10 game engine according to the Developer\tm~\cite{unityrank}. The game currently runs on Mac OS, where it gets better support from CCNx. Egal Car is made from Unity's single player car race tutorial~\cite{UnityCar}~and our NDN network module.
+
+
+
 %--------------------------------------------------------------------------------------------------------------------------------------%
 \subsection{Software Hierarchy}
 \label{softwarehierarchy}
 
+%********************%
+\def\tboxl[#1,#2,#3,#4,#5]#6{%
+  \node[draw, drop shadow={opacity=.35}, minimum height=#1, minimum width=#2, %
+  inner color=white, outer color=white, color=black] (#4) at #5 {}; %
+  \node[anchor=#3,inner sep=2pt] at (#4.#3) {#6};%
+}
+
+%-----#1 name of the node, #2 coordinate, #3 label
+\def\entity[#1,#2]#3;{
+  \node[draw,drop shadow={opacity=.4,shadow xshift=0.04, shadow
+    yshift=-0.04},color=black,fill=white,rounded corners=3] (#1) at #2 {#3};
+}
+
+%-----#1 from node, #2 to node, #3 specification of a node (label), #4
+%-----dashed, or other parameters for draw
+\def\isaedge[#1,#2,#3,#4];{ 
+  \draw[->,color=black!20!black,#4,fill=white] (#1) -- #3
+  (#2);  
+}
+
+%-----ABoxes
+%-----#1 height, #2 width, #3 aspect, #4 name of the node, #5
+%-----coordinate, #6 label   
+\def\aboxr[#1,#2,#3,#4,#5]#6{%
+  \node[draw, cylinder, alias=cyl, shape border rotate=90, aspect=#3, %
+  minimum height=#1, minimum width=#2, outer sep=-0.5\pgflinewidth, %
+  color=black, left color=white, right color=white, middle
+  color=white] (#4) at #5 {};%
+  \node at #5 {#6};%
+  \fill [white] let \p1 = ($(cyl.before top)!0.5!(cyl.after top)$), \p2 =
+  (cyl.top), \p3 = (cyl.before top), \n1={veclen(\x3-\x1,\y3-\y1)},
+  \n2={veclen(\x2-\x1,\y2-\y1)} in (\p1) ellipse (\n1 and \n2); }
+
+%-----#1 height, #2 width, #3 name of the node, #4
+%-----coordinate, #5 label
+\def\kbbox[#1,#2,#3,#4,#5]#6{
+        \draw[dashed] node[draw,color=gray!50,minimum
+        height=#1,minimum width=#2] (#4) at #5 {}; 
+        \node[anchor=#3,inner sep=2pt] at (#4.#3)  {#6};
+}
 \begin{figure}
 \begin{center}
-\begin{tikzpicture}[stack/.style={rectangle split, rectangle split parts=#1,draw, anchor=center}]
-\node at (0, 0) [stack=4]  {
-\nodepart{one}Unity3D
-\nodepart{two}CCNx
-\nodepart{three}Sync
-\nodepart{four}Repository
-};
-\node at (5, 0) [stack=4]  {
-\nodepart{one}Unity3D
-\nodepart{two}CCNx
-\nodepart{three}Sync
-\nodepart{four}Repository
-};
-\draw[<->] (1, 0.25) -- (4, 0.25) node [midway, above] {Interest/Data};
-\end{tikzpicture}
-\caption{Peer Hierarchy}
-\label{hierarchy}
+  \begin{tikzpicture} [scale=1.2, transform shape]
+    \small
+    \kbbox[144,150,south,Peer1,(0,1.25)] {Peer};
+    \tboxl[40,100,north,t1,(-0.5,2.7)] {$Egal Car$};
+    \entity[Module,(-0.8,2.4)] {$Network Module$};
+    \tboxl[12,40,north,t1,(1.3,2.4)] {$Egal$};
+    \aboxr[20,50,1.4,Repo,(-1,1.2)] {$Repository$};
+    \entity[Sync,(-1,0.4)] {$CCNx Sync$};
+    \entity[Daemon,(-0.8,-0.5)] {$CCNx Daemon$};
+    \isaedge[Module,Repo,,];
+    \isaedge[Repo,Sync,,];
+    \isaedge[Sync,Daemon,,];
+    \draw[->,color=black!20!black,,,] plot [smooth,tension=1.5] coordinates{(-0.8,2.17) (0.4,0.85) (-0.8,-0.27)};
+
+    \kbbox[30,60,south,Peer2,(4,0.5)] {Peer};
+    \kbbox[30,60,south,Peer3,(4,-1)] {Peer};
+     \draw[<->,color=black!20!black,,,] (0.4,-0.5) -- (3,0);
+     \draw[<->,color=black!20!black,,,] (0.4,-0.5) -- (3,-1);
+  \end{tikzpicture}
+\caption{default}
+\label{default}
 \end{center}
 \end{figure}
-
+%********************%
 %--------------------------------------------------------------------------------------------------------------------------------------%
 \subsection{Interoping}
 \label{interoping}
 
+% Egal library
 
 %============================================================================%
 \section{Future Work}
@@ -293,6 +348,7 @@ Some optimization can be done by the game application to further reduce the traf
 
 % interactions
 % cheating
+
 
 %============================================================================%
 \section{Conclusions}
