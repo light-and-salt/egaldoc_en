@@ -228,11 +228,17 @@ Assets are independent of each other. This explains why we can use unordered syn
 
 Although asset synchronization is unordered, it does need to be reliable. Alice and Bob must be known by all other peers in spite of potential packet losses. NDN is like IP in that it provides a best-effort delivery but does not give reliability. Therefore the synchronization strategy should ensure that all asset updates are effectively delivered. In Egal Car, reliability is guaranteed by CCNx Sync as the synchronization strategy periodically broadcasts Root Advise Interests throughout the timespan of the game. As long as there is a difference between two repositories, their \texttt{<root hash>} would differ, and CCNx Sync would be targeted to eliminate such differences.
 
-%-------------------------------------------------------------------------------------------------------------------------------------%
+%--------------------------------------------------------------------------------------------------------------------------------------%
 \subsection{State Synchronization}
 \label{statesynchronization}
 
-% ordered sync
+State is a snapshot of a variable. When all assets become known to the game, all state variables that should be synchronized become clear also. For example, when Alice and Bob are known to the game, then it is clear that both player's child nodes (the pink nodes of the Game Tree in figure~\ref{img:gametree}) are state that should be synchronized. 
+
+State updates and asset updates are different and similar. On the one hand, they are different in that state updates are usually a series of content objects that share a common name while an asset update is usually a single content object with its unique name. For example, asset updates of Alice's car could be either \texttt{.../<AliceCar>/<random>} or \texttt{.../anti/<AliceCar>/<random>}. Both names represents a single content object. State updates of Alice may use this name \texttt{.../<AliceCar>/<random>/transform/position} to refer to Alice's position. Although it is just one constant name, it may actually represent a series of packets generated every hundred milliseconds. Every state update is timestamped, which is how it can be distinguished from its predecessors and successors. On the other hand, state updates and asset updates are similar in that state updates are also independent of each other. Alice and Bob's state will not affect each other: \texttt{.../<AliceCar>/<random>/transform/position} will not cause \texttt{.../<BobCar>/<random>/transform/position} to change. Note that we are not considering the case where Alice and Bob interact with each other. Such interactions will lead to players' state change but they should not be using our state model. We will provide a new model for these interactions in a future paper (see section~\ref{futurework}).
+
+State synchronization should be ordered, but does not need to be reliable. It has to be ordered because continuous state updates share a common name. These state updates should be processed in the order of their generation time (given by their timestamps) in order for peers to understand the chronological relationship among them. This is especially important in NDN where dated state updates are also cached in the web. If state synchronization does not stick to the chronological order, peers' Interests of other peers' state may be satisfied by the same old state generated a long time ago. Another aspect of state synchronization is that it need not to be reliable. Occasional packet misses in a flow of state updates will not hurt. This is because: first, state updates are independent of each other, which means some information missing about Alice's state will not affect a peer's understanding of Bob's state; second, state updates are snapshots rather than change logs, which means that newer state updates will always fully \emph{overwrite} the older state update and little harm will be done if there is a missing state between the two updates. One can compare state synchronization to newspaper delivery. Newspapers should have a printed date and should be delivered in the chronological order in order for newspaper readers to understand the on-going trends of the world. But readers do not have to worry if yesterday's newspaper did not arrive, as today's newspaper will come soon. If the news in yesterday's newspaper is still valid, it will be covered in today's newspaper, too. If it is not valid any more, readers have no reason to care about it.
+
+In Egal Car, state synchronization is achieved setting selectors in Interest packets to retrieve the state in need. 
 
 %============================================================================%
 \section{Implementation}
@@ -254,3 +260,6 @@ Although asset synchronization is unordered, it does need to be reliable. Alice 
 \bibliography{sample}
 
 \end{document}
+
+
+
