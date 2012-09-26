@@ -22,7 +22,7 @@
 \maketitle
 
 \begin{abstract}
-
+Multiplayer online games require synchronization mechanisms to maintain the game state consistency. In this paper, we proposed a synchronization mechanism for simple multiplayer games over Named Data Networking (NDN). Based on the observation that a large portion of game data show great independence, we used unordered\slash unreliable strategies to synchronize these data. We proved our ideas by implementing it in Egal Car, a Peer-to-Peer car racing game on NDN. Our method does not introduce delays in packet processing and does not lead to huge memory consumption like other algorithms, which makes it an ideal choice for games that does not contain any explicit inter-user interactions.
 \end{abstract}
 
 %============================================================================%
@@ -424,7 +424,7 @@ Another interesting research topic is game security and cheating-avoidance, whic
 \section{Conclusions}
 \label{conclusions}
 
-In this paper we proposed a synchronization mechanism for simple car racing games over NDN. We found that in simple games where game updates tend to be independent, unordered and unreliable synchronization strategies can be used to improve these games' interactivity without hurting their consistency. Unlike fully-ordered, reliable game synchronization strategies, our mechanism does not introduce delay in packet processing and does not require huge memory capacity for game state storage. We implemented our mechanism in a prototype game, \emph{Egal Car} and provided an open-source synchronization library \emph{Egal} to future NDN game developers. We also explored the workflow of NDN game development and included a lot of design and implementation discussions in the paper.
+In this paper we proposed a synchronization mechanism for simple car racing games over NDN. We found that in simple games where game updates tend to be independent, unordered and unreliable synchronization strategies can be used to improve these games' interactivity without hurting their consistency. Unlike fully-ordered, reliable game synchronization strategies, our mechanism does not introduce delay in packet processing and does not require huge memory capacity for game state storage. We implemented our mechanism in a prototype game, \emph{Egal Car} and provided an open-source synchronization library \emph{Egal} to future NDN game developers. We also explored the workflow of NDN game development and included a lot of design choices and implementation discussions in the paper.
 
 %============================================================================%
 \bibliographystyle{plain}
