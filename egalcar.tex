@@ -407,11 +407,17 @@ The network module is where asset and state synchronization is implemented. It c
 
 
 %============================================================================%
-\section{Future Work}
+\section{Discussions and Future Work}
 \label{futurework}
 
 % interactions
+Egal Car is a relatively simple MOG prototype, and the synchronization mechanism that we designed for it is also simplified for performance. In Egal Car, assets are independent of each other there is little explicit interaction between them. This is why we can safely apply unordered or unreliable synchronization strategies to the game without hurting its consistency. Our synchronization mechanism does not apply to game genres that has a lot of user interactions, such as role-playing games (RPG) and real-time strategy games (RTS). The reason is that inter-user interactions will lead to state changes and even asset changes. A new model is needed to describe interactions and a new synchronization strategy should be designed (or chosen) to meet its requirements. We will study this new model and synchronization strategy in the future.
+
+% scale
+Egal Car is not an ideal test case for P2P games' scalability, since its players are confined to the racing track. Since one of our interests is to find out whether or not P2P games would be more scalable on NDN than they would on IP, we would like to implement a new test case whose player capacity is much larger to find out the answer to our question. We plan to build a massively multiplayer on-line game (MMOG) and study its synchronization mechanism in greater depth.
+
 % cheating
+Another interesting research topic is game security and cheating-avoidance, which is of special importance to P2P games. Since network security in NDN is also very different from that of IP networks, we expect a lot of changes in the authentication and anti-cheating mechanisms, too.
 
 
 %============================================================================%
