@@ -142,7 +142,13 @@ Figure~\ref{img:namespace} illustrates Egal Car's namespace, which is composed o
 \begin{subfigure} [Repository Tree]
 {
 \begin{tikzpicture} [scale=0.8, transform shape]
-    \tikzstyle{every node}=[minimum size=6mm,				% The border:      				 ,     				 draw=black,      				% The filling:				font=\itshape					]
+    \tikzstyle{every node}=[minimum size=6mm,
+				% The border:
+      				 ,
+     				 draw=black,
+      				% The filling:
+				font=\itshape
+					]
     \node {$<$localhost prefix$>$}
         child { node {$<$create slice command$>$} 
         		child{ node {$<$slice hash$>$} }
@@ -155,7 +161,13 @@ Figure~\ref{img:namespace} illustrates Egal Car's namespace, which is composed o
 \begin{subfigure} [Discovery Tree]
 {
 \begin{tikzpicture} [scale=0.8, transform shape]
-    \tikzstyle{every node}=[align = center, minimum size=6mm,				% The border:      				,     				 draw=black,      				% The filling:				font=\itshape					]
+    \tikzstyle{every node}=[align = center, minimum size=6mm,
+				% The border:
+      				,
+     				 draw=black,
+      				% The filling:
+				font=\itshape
+					]
     \tikzstyle{level 1} = [sibling distance=50mm]
     \node {$<$broadcast prefix$>$/EgalCar}
         child { node {$<$root advise command$>$} 
@@ -177,11 +189,45 @@ Figure~\ref{img:namespace} illustrates Egal Car's namespace, which is composed o
 \begin{subfigure} [Game Tree]
 {
 \begin{tikzpicture} [scale=0.8, transform shape,
-				state/.style={				% The shape:				rectangle,				% The size:      				minimum size=6mm,				% The border:      				,     				 draw=red!50!black!50,      				% The filling:
-				fill = magenta!15,				%top color=white,				%bottom color=red!50!black!20, % and something else at the bottom % Font				font=\itshape    				},
-				asset/.style={				% The shape:				rectangle,				% The size:      				minimum size=6mm,				% The border:      				,     				 draw=cyan!50!black!50,      				% The filling:
-				fill = cyan!15,				%top color=cyan!50!black!20,				%bottom color=cyan!50!black!20, % and something else at the bottom % Font				font=\itshape    				},
-				default/.style={				% The shape:				rectangle,				% The size:      				minimum size=6mm,				% The border:      				,     				 draw=black,      				% The filling:				font=\itshape    				},
+				state/.style={
+				% The shape:
+				rectangle,
+				% The size:
+      				minimum size=6mm,
+				% The border:
+      				,
+     				 draw=red!50!black!50,
+      				% The filling:
+				fill = magenta!15,
+				%top color=white,
+				%bottom color=red!50!black!20, % and something else at the bottom % Font
+				font=\itshape
+    				},
+				asset/.style={
+				% The shape:
+				rectangle,
+				% The size:
+      				minimum size=6mm,
+				% The border:
+      				,
+     				 draw=cyan!50!black!50,
+      				% The filling:
+				fill = cyan!15,
+				%top color=cyan!50!black!20,
+				%bottom color=cyan!50!black!20, % and something else at the bottom % Font
+				font=\itshape
+    				},
+				default/.style={
+				% The shape:
+				rectangle,
+				% The size:
+      				minimum size=6mm,
+				% The border:
+      				,
+     				 draw=black,
+      				% The filling:
+				font=\itshape
+    				},
 				]
     \tikzstyle{every node} = [align=center]
    % \tikzstyle{asset} = [fill=cyan!15]
@@ -253,7 +299,7 @@ State synchronization is what generates the largest amount of traffic in most MO
 \begin{equation}
 N = xf\bar{h}n(n-1)
 \end{equation}
-$x$ is the number of packets necessary for a state exchange, which is usually greater or equal to two. $f$ is the frequency of state exchange defined by the game application. $\bar{h}$ is the average number of hops that a packet has to travel. In IP networks, $\bar{h}$ equals the average distance (in hops) between peers, as each peer is both data receiver and data sender. In NDN networks $\bar{h}$ will be significantly smaller because most Interest and Data packets do not really travel from data publisher to receivers. As Interests \emph{aggregate} and Data \emph{propagate}~\cite{Jndn}, many Interests need only travel a few hops to be satisfied or to be combined with an identical Interest. This reduces the average travel distance of packets and makes NDN games less congested than IP games.
+$x$ is the number of packets necessary for a state exchange, which is usually greater or equal to two. $f$ is the frequency of state exchange defined by the game application. $\bar{h}$ is the average number of hops that packets have to travel. In IP networks, $\bar{h}$ equals the average distance (in hops) between peers, as each peer is both data receiver and data sender. In NDN networks $\bar{h}$ will be significantly smaller because most Interest and Data packets do not really travel from data publisher to receivers. As Interests \emph{aggregate} and Data \emph{propagate}~\cite{Jndn}, many Interests need only travel a few hops to be satisfied or to be combined with an identical Interest. This reduces the average travel distance of packets and makes NDN games less congested than IP games.
 
 Some optimization can be done by the game application to further reduce the traffic generated by state synchronization. In Egal Car, the \texttt{state} node in the Game Tree (see figure~\ref{img:gametree}) is designed for such optimization. The \texttt{state} object is a summary of other state updates (\texttt{transform/position} and \texttt{transform/rotation}) and is synchronized instead of its siblings.
 
@@ -262,31 +308,28 @@ Some optimization can be done by the game application to further reduce the traf
 \section{Implementation}
 \label{implementation}
 
-Egal Car is developed with Unity, a top-10 game engine according to the Developer\tm~\cite{unityrank}. The game currently runs on Mac OS, where it gets better support from CCNx. Egal Car is made from Unity's single player car race tutorial~\cite{UnityCar}~and our NDN network module.
+Egal Car is developed with Unity, a top-10 game engine according to the Developer\tm~\cite{unityrank}. It is adapted from Unity's single player car race tutorial~\cite{UnityCar}. We leave the tutorial's gameplay intact and add our network module it to make the tutorial a MOG. 
 
+As expected, for the network module to work properly, it needs support from some lower level CCNx processes such as CCNx Sync. This supporting relationship is illustrated in figure~\ref{peerarchitecture}. First of all, for asset synchronization to work, a daemon process of the local repository should be running. In CCNx, this process is called \texttt{ccnr} and it manages read\slash write requests to the repository. In figure~\ref{peerarchitecture} we see a bidirectional arrow between the network module and the repository, which represents a channel of exchanging asset updates. In addition to the \texttt{ccnr} daemon, CCNx Sync is needed to \emph{manage} repository contents (see section~\ref{synchronization}), therefore there is direct communication between the repository and the CCNx Sync Agent. Finally, a CCNx daemon named \texttt{ccnd} is needed. This daemon provides fundamental CCNx support such as sending and receiving Interest and Data packets. The curved arrow between the network module and the CCNx daemon represents state synchronization, which does not rely on other CCNx facilities.
 
-
-%--------------------------------------------------------------------------------------------------------------------------------------%
-\subsection{Software Hierarchy}
-\label{softwarehierarchy}
+The network module is where asset and state synchronization is implemented. It contains some network scripts and two libraries (see figure~\ref{img:networkmodule}). The network scripts implement our synchronization mechanism by invoking functions provided by the Egal library and the CCNx library. CCNx library contains programming interfaces given by the CCNx project. Egal library is based on CCNx library but it provides some convenient functions for synchronization. Both Egal library and CCNx library is written in \texttt{C}, but the network scripts (and other game scripts) are written in \texttt{C\#}. We used the \texttt{InteropServices} of \texttt{.Net Framework} to invoke \texttt{C} functions from \texttt{C\#} and vise versa.
 
 %********************%
 \def\tboxl[#1,#2,#3,#4,#5]#6{%
-  \node[draw, drop shadow={opacity=.35}, minimum height=#1, minimum width=#2, %
+  \node[draw,, minimum height=#1, minimum width=#2, %
   inner color=white, outer color=white, color=black] (#4) at #5 {}; %
   \node[anchor=#3,inner sep=2pt] at (#4.#3) {#6};%
 }
 
 %-----#1 name of the node, #2 coordinate, #3 label
 \def\entity[#1,#2]#3;{
-  \node[draw,drop shadow={opacity=.4,shadow xshift=0.04, shadow
-    yshift=-0.04},color=black,fill=white,rounded corners=3] (#1) at #2 {#3};
+  \node[draw,,color=black,fill=white,rounded corners=3] (#1) at #2 {#3};
 }
 
 %-----#1 from node, #2 to node, #3 specification of a node (label), #4
 %-----dashed, or other parameters for draw
 \def\isaedge[#1,#2,#3,#4];{ 
-  \draw[->,color=black!20!black,#4,fill=white] (#1) -- #3
+  \draw[<->,color=black!20!black,#4,fill=white] (#1) -- #3
   (#2);  
 }
 
@@ -314,33 +357,54 @@ Egal Car is developed with Unity, a top-10 game engine according to the Develope
 \begin{center}
   \begin{tikzpicture} [scale=1.2, transform shape]
     \small
-    \kbbox[144,150,south,Peer1,(0,1.25)] {Peer};
-    \tboxl[40,100,north,t1,(-0.5,2.7)] {$Egal Car$};
-    \entity[Module,(-0.8,2.4)] {$Network Module$};
-    \tboxl[12,40,north,t1,(1.3,2.4)] {$Egal$};
-    \aboxr[20,50,1.4,Repo,(-1,1.2)] {$Repository$};
-    \entity[Sync,(-1,0.4)] {$CCNx Sync$};
-    \entity[Daemon,(-0.8,-0.5)] {$CCNx Daemon$};
+    \kbbox[144,120,south,Peer1,(0,1.25)] {Peer};
+    \tboxl[40,100,north,t1,(-0,2.7)] {$Egal Car$};
+    \entity[Module,(-0,2.4)] {$Network Module$};
+   % \tboxl[12,40,north,t1,(1.3,2.4)] {$Egal$};
+    \aboxr[20,50,1.4,Repo,(-0.6,1.2)] {$Repository$};
+    \entity[Sync,(-0.6,0.4)] {$CCNx Sync$};
+    \entity[Daemon,(-0,-0.5)] {$CCNx Daemon$};
     \isaedge[Module,Repo,,];
     \isaedge[Repo,Sync,,];
     \isaedge[Sync,Daemon,,];
-    \draw[->,color=black!20!black,,,] plot [smooth,tension=1.5] coordinates{(-0.8,2.17) (0.4,0.85) (-0.8,-0.27)};
-
-    \kbbox[30,60,south,Peer2,(4,0.5)] {Peer};
-    \kbbox[30,60,south,Peer3,(4,-1)] {Peer};
-     \draw[<->,color=black!20!black,,,] (0.4,-0.5) -- (3,0);
-     \draw[<->,color=black!20!black,,,] (0.4,-0.5) -- (3,-1);
+    \draw[<->,color=black!20!black,,,] plot [smooth,tension=1.5] coordinates{(-0,2.17) (1,0.85) (-0,-0.27)};
+    \node [cloud, draw,cloud puffs=10,cloud puff arc=120, aspect=2, inner ysep=1em] at (5,-0.5) {network};
+   % \kbbox[30,60,south,Peer2,(5,-0.5)] {Peer};
+   % \kbbox[30,60,south,Peer3,(4,-1)] {Peer};
+     \draw[<->,  thick, color=black!20!black,,,] (1.3,-0.5) -- (3.7,-0.5) node [midway, above] {Interest/Data};
+    % \draw[<->,  thick, color=black!20!black,,,] (0.4,-0.5) -- (3,-1) node [midway, below] {Interest/Data};
   \end{tikzpicture}
-\caption{default}
-\label{default}
+\caption{Egal Car and its NDN Support}
+\label{peerarchitecture}
+\end{center}
+\end{figure}
+
+%********************%
+\begin{figure}
+\begin{center}
+  \begin{tikzpicture}
+  
+%  \node[draw,,minimum height=60,minimum width=100,color=black,fill=white,rounded corners=3] (Rounded) at (0,0) {};
+%  \node[anchor=north,inner sep=2pt] at (Rounded.north) {$Network Module$};
+%  \entity[Script,(0,-0.2)] {$Network Scripts$};
+%  \entity[Egal,(-0.8,-0.8)] {$Egal$};
+%  \entity[CCNx,(0.8,-0.8)] {$CCNx$};
+  
+  \node[rectangle split, rectangle split parts=3, draw, text width=2.75cm, align=center, rounded corners=3]
+        {$Network Module$
+        \nodepart{second}
+        Network Scripts
+        \nodepart{third}
+        Egal Library \\
+        CCNx Library}; 
+    
+  \end{tikzpicture}
+\caption{The Network Module}
+\label{img:networkmodule}
 \end{center}
 \end{figure}
 %********************%
-%--------------------------------------------------------------------------------------------------------------------------------------%
-\subsection{Interoping}
-\label{interoping}
 
-% Egal library
 
 %============================================================================%
 \section{Future Work}
