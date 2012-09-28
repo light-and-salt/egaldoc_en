@@ -22,7 +22,7 @@
 \maketitle
 
 \begin{abstract}
-Multiplayer online games require synchronization mechanisms to maintain the game state consistency. In this paper, we proposed a synchronization mechanism for simple multiplayer games over Named Data Networking (NDN). Based on the observation that a large portion of game data show great independence, we used unordered\slash unreliable strategies to synchronize these data. We proved our ideas by implementing it in Egal Car, a Peer-to-Peer car racing game on NDN. Our method does not introduce delays in packet processing and it does not lead to huge memory consumption like other algorithms. This makes it an ideal choice for games that does not contain any explicit inter-user interactions.
+Multiplayer online games require synchronization mechanisms to maintain the game state consistency. In this paper, we proposed a synchronization mechanism for simple multiplayer games over Named Data Networking (NDN). Based on the observation that a large portion of game data show great independence, we used unordered\slash unreliable strategies to synchronize these data. We proved our ideas by implementing it in Egal Car, a Peer-to-Peer car racing game on NDN. Our method does not introduce delays in packet processing and it does not lead to huge memory consumption like other algorithms. This makes it an ideal choice for games that does not contain any explicit inter-user interaction.
 \end{abstract}
 
 %============================================================================%
@@ -36,7 +36,21 @@ Synchronization mechanisms are fundamental to consistency maintenance. In a MOG 
 
 This paper documents a simple synchronization mechanism that we designed for MOGs over named data network (NDN)~\cite{Jndn}. NDN is a new Internet architecture that names data instead of hosts (see section~\ref{ndnbackground}). From the game application's point of view, NDN can be regarded as a new lower layer service provider, or an alternative of TCP\slash IP. But NDN's impact on game development and synchronization mechanism may go beyond that: as data acquire names that are meaningful to game applications, the method for managing and synchronizing these data evolves accordingly. % :)
 
-We explored NDN's impact on MOG design and implementation by creating a MOG on our NDN testbed. Our game prototype is called \emph{Egal Car}, which is a 3D car racing game with highly detailed scenery and track. Each player has control over one car, which can speed up, slow down and alter direction. The cars can collide with each other and with fences along the track. All car movements are simulated by the game's physics engine. Like in any racing game, each player's goal is to lead the other competitors and win the race. Note that Egal Car is adapted from an open source game template called Unity\tm  Car Tutorial~\cite{UnityCar}. This template provides all graphics and physics modules that we mentioned above, but does not contain a network module. In other words, the template is a single-player off-line car racing game with all front-end work done; it only takes a network module to become a MOG. We designed and engineered the network module of this game. Specifically, we designed a synchronization mechanism with the car racing game's needs in mind. 
+We explored NDN's impact on MOG design and implementation by creating a MOG on our NDN testbed. Our game prototype is called \emph{Egal Car}, which is a 3D car racing game with highly detailed scenery and track (see figure~\ref{screenshots}). Each player has control over one car, which can speed up, slow down and alter direction. The cars can collide with each other and with fences along the track. All car movements are simulated by the game's physics engine. Like in any racing game, each player's goal is to lead the other competitors and win the race. Note that Egal Car is adapted from an open source game template called Unity\tm  Car Tutorial~\cite{UnityCar}. This template provides all graphics and physics modules that we mentioned above, but does not contain a network module. In other words, the template is a single-player off-line car racing game with all front-end work done; it only takes a network module to become a MOG. We designed and engineered the network module of this game. Specifically, we designed a synchronization mechanism with the car racing game's needs in mind. 
+
+\begin{figure}
+\begin{center}$
+\begin{array}{cc}
+\includegraphics[width=0.45\textwidth]{image/1.png} &
+\includegraphics[width=0.45\textwidth]{image/2.png}
+\\ 
+\includegraphics[width=0.45\textwidth]{image/3.png} &
+\includegraphics[width=0.45\textwidth]{image/4.png}
+\end{array}$
+\end{center}
+\caption{Screenshots of Egal Car}
+\label{screenshots}
+\end{figure}
 
 The rest of this paper describes the design choices and implementation details of our prototype game and its network module. Section~\ref{ndnbackground}~introduces NDN principles and facts that may inspire MOG design. Sections~\ref{architecture}~through~\ref{implementation}~discuss MOG design, using Egal Car as a main example.
 
