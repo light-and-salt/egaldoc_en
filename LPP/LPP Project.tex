@@ -23,7 +23,7 @@ To be filled.
 %-------------------------------------------------------------------------------------------------------------------------------------%
 % Introduction
 %-------------------------------------------------------------------------------------------------------------------------------------%
-\section{Introduction: Objective, Potential Findings}
+\section{Introduction: Objective, Inspiration and Potential Findings}
 \label{itro}
 %Massively Multiplayer Online Games (MMOGs) are gaining research attention these years. The LPP project is an exploration of the design and creation of such games on Named Data Network (NDN). The {consistency}, scalability, availability and security issues of MMOG design are of special interest. As of genre and gameplay, we are interested in creating an Role Playing Game (RPG) inspired by \emph{Le Petit Prince}, which is how this project got its name.
 
@@ -35,20 +35,24 @@ This document is aimed for the Named Data Networking Multiplayer Online Game (ND
 %subject to change as we write on
 In this section we define the project objective and potential findings. Section \ref{ggd} introduces the general game design of our planned RPG game and compares it with characteristics of World of Warcraft (WoW), the representative MOG. The MOG synchronization problem and related design issues are described in section \ref{dfsync}. Finally, section \ref{dslpp} tries to solve the synchronization problem for our RPG game and evaluate the solution. Note that NDN MOG is an on-going project, hence section \ref{dslpp} is merely a best-effort solution for the time being. The document may raise more questions than it answers. Its content (including background and design) is subject to substantial improvement and change.
 
-\subsection{Project Objectives: Explore The P2P Game Synchronization Problem And The Related Problems}
+\subsection{Project Objective: Explore The P2P Game Synchronization Problem And The Related Problems}
 The primary objective is to explore the Peer-to-Peer (P2P) game synchronization problem on NDN. Closely related problems such as architecture choice, interactivity and scalability are seriously considered. Other related problems like availability and security are taken into account whenever possible. These problems are depicted in section \ref{dfsync}.
 
 \subsection{Project Inspiration: P2P MOGs In The IP World}
-In the industry, the Client/Server (C/S) architecture dominant the MOG world. Large MOGs, or Massively Multiplayer Online Games (MMOGs) like World of Warcraft use clusters of servers to handle its thousands of players despite the high cost, service bottleneck and single point-of-failure brought by the centralized servers \cite{Neumann07, Fan10}.
+In the industry, the Client/Server (C/S) architecture dominant the MOG world. Large MOGs, or Massively Multiplayer Online Games (MMOGs) like World of Warcraft use clusters of servers to handle its thousands of players despite the high cost, service bottleneck and single point-of-failure brought by the centralized servers \cite{Neumann07, Fan10}. 
 
-In the academia, there has been debate about P2P architecture's potential for MOGs and MMOGs. Some researchers are very pessimistic: in 2010, Miller et al. predicted that MMOGs with WoW-like scale cannot be deployed using the available P2P scheme \cite{Miller10}. Other researchers find the future of P2P support for MMOGs attractive: in 2004 Knutsson et al. simulated a P2P MOG which scaled up to 4,000 concurrent players \cite{Knutsson04}, and many other P2P schemes were proposed after that \cite{Fan10}. Many researchers agree that the common future of P2P and MMOG remains promising, but for P2P architectures to be a practical alternative of the C/S architecture, many challenges persist: consistency, interactivity, scalability, availability, security etc. \cite{Neumann07, Fan10, Gilmore12}.
+In the academia, there has been debate about P2P architecture's potential for MOGs and MMOGs. Some researchers are very pessimistic: in 2010, Miller et al. predicted that MMOGs with WoW-like scale cannot be deployed using the available P2P scheme \cite{Miller10}. Other researchers find the future of P2P support for MMOGs attractive: in 2004 Knutsson et al. simulated a P2P MOG which scaled up to 4,000 concurrent players \cite{Knutsson04}, and many other P2P schemes were proposed after that \cite{Fan10}. Many researchers agree that the common future of P2P and MMOG remains promising, but for P2P architectures to be a practical alternative of the C/S architecture, many challenges persist: consistency, interactivity, scalability, availability, security etc. \cite{Neumann07, Fan10, Gilmore12}. 
 
-P2P game synchronization problem is closely related to these challenges that lay ahead (see section \ref{dfsync}). If the synchronization problem is better solved, P2P MOGs are likely to experience a performance increase. Further, given NDN's many characteristics such as intrinsic multicasting and 
+P2P game synchronization problem is closely related to these challenges that lay ahead (see section \ref{dfsync}). If the synchronization problem is better solved, P2P MOGs are likely to experience a performance increase. Given NDN's many characteristics such as intrinsic multicasting \cite{Jndn}, there is a potential that NDN can provide better support for P2P MMOGs than IP does (see section \ref{dslpp}).
 
-\subsection{Potential Findings: Impact of NDN on P2P MOGs}
-% P2P are not favored by the industry, and some researchers are really pessimistic about it
-% however, there is hope, Knutsson for example, did a good job in 2004, and NDN has potential to further improve the result. Many researchers are passionate about this topic too.
-
+\subsection{Potential Findings: Impact of NDN On P2P MOGs}
+Potential findings of the project include but are not limited to:
+\begin{itemize}
+\item A P2P game synchronization mechanism on NDN
+\item An evaluation of the mechanism, regarding consistency, interactivity, scalability and other related metrics
+\item A prototype RPG game with necessary simulations
+\item A library/toolkit that supports the proposed mechanism
+\end{itemize}
 
 %-------------------------------------------------------------------------------------------------------------------------------------%
 % MMOGs and our Gameplay
