@@ -144,16 +144,21 @@ This section tries to shed light on the MOG synchronization problem and its rela
 % the graph: fully connected P2P model, obviously not scalable (latency is great, but the bandwidth requirement is too high)
 % If you want it to scale, you will have to trade great latency for scale
 % but you will need a mechanism to limit the latency, like Knutsson did in 2004
+% this sync problem is not the same as the file sync problem
+Thousands of players experience a shared virtual world in a MMOG. Media of the virtual world (such as 3D models of the land, buildings, NPCs and characters) and the \emph{game logic} (rules of how this world should function and how its members should interact) are typically installed on the player's machine. In addition to that every player needs a copy of the \emph{game state} in order to learn the evolvement of the world. The game state is the state of the virtual world plus the state of all participating players, NPCs and objects. It is obvious that the game state changes as time passes by. Players interact with the world by generating actions that changes the game state. Because each player has a replication of the game state, a consistency issue arises: copies of game state should always be consistent with each other or else players' opinions of the virtual world would diverge. A mechanism that guarantees such consistency is called a game synchronization mechanism.
+
+Two synchronization models exists: event-based and update-based (see figure \ref{fig:sm}) \cite{Gilmore12}. Event-based sync models are used on fully distributed P2P networks where every peer is directly connected to \emph{all other peers}. Each peer maintains a replication of the global game state and send \emph{event}s that represent the player's action in the virtual world to all other peers. As newer global game state can only be computed when the game logic has sufficient input, i.e. actions of all relevant peers within a relevant time period, each peer actively listens to events published by all other peers. Moreover, due to the uncertainty of transmission delay events may arrive at a peer out of their generation order. Peers need an algorithm to figure out the generation order of received events in order to compute the correct game state. Such algorithms are described in section \ref{sec:sa}. Note that a peer could also use a reliable, ordered delivery service to make sure it receives all events and in the right order. Yet it is reported that such services would significantly degrade game performance \cite{Fgame}, and are rarely adopted. % double-check this
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.3]{images/cm.png}
-\caption{Consistency Models. Excerpted from \cite{Gilmore12}}
-\label{default}
+\includegraphics[scale=0.3]{images/sm.png}
+\caption{Synchronization Models. Excerpted from \cite{Gilmore12}}
+\label{fig:sm}
 \end{center}
 \end{figure}
 
 \subsubsection{Synchronization Algorithms: Conservative, Optimistic}
+\label{sec:sa}
 
 \subsection{Related Problems: Architecture, Interactivity, Scalability, Availability, Security}
 \label{sec:rp}
