@@ -136,15 +136,27 @@ As mentioned in section \ref{sec:act}, we are primarily interested in player act
 %-------------------------------------------------------------------------------------------------------------------------------------%
 \section{The Synchronization Problem and Related Problems}
 \label{dfsync}
+This section tries to shed light on the MOG synchronization problem and its related problems by providing information from the literature. We summarized that the goal of the synchronization problem is to reach game state consistency (section \ref{sec:cm}) and explained why architecture choice, interactivity and scalability are closely related to the synchronization problem (section \ref{sec:rp}).
 
-\subsection{The Consistency Model: Event Based (P2P) and Update Based (C/S)}
+\subsection{Consistency Models: Event Based (P2P) and Update Based (C/S)}
+\label{sec:cm}
+% virtual world is shared, so replications exist, so you need consistency, so you need synchronization
 % the graph: fully connected P2P model, obviously not scalable (latency is great, but the bandwidth requirement is too high)
 % If you want it to scale, you will have to trade great latency for scale
 % but you will need a mechanism to limit the latency, like Knutsson did in 2004
 
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.3]{images/cm.png}
+\caption{Consistency Models. Excerpted from \cite{Gilmore12}}
+\label{default}
+\end{center}
+\end{figure}
+
 \subsubsection{Synchronization Algorithms: Conservative, Optimistic}
 
 \subsection{Related Problems: Architecture, Interactivity, Scalability, Availability, Security}
+\label{sec:rp}
 
 \subsubsection{Architecture Choice: P2P, C/S, Hybrid}
 
