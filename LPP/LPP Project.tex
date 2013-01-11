@@ -3,6 +3,10 @@
 \usepackage{fullpage}
 \usepackage{hyperref}
 
+\usepackage{caption}
+\usepackage{subcaption}
+
+
 %\usepackage{fontspec}
 %\setmainfont{Times New Roman}
 
@@ -54,20 +58,62 @@ Potential findings of the project include but are not limited to:
 \item A library/toolkit that supports the proposed mechanism
 \end{itemize}
 
+
 %-------------------------------------------------------------------------------------------------------------------------------------%
 % MMOGs and our Gameplay
 %-------------------------------------------------------------------------------------------------------------------------------------%
 \section{General Game Design: LPP and WoW}
 \label{ggd}
-% in this section introduce the gameplay of our prototype game and compare it with WoW.
+In this section we present general game design of our prototype RPG game \emph{LPP} (inspired by \emph{Le Petit Prince}) and compare it with the representative MMOG World of Warcraft (WoW). We do not intend to create a game of similar complexity in terms of gameplay, but we hope to simulate interactions that are typical in WoW and find out the game's scalability. In this way, our experiment will carry more practical value.
 
-\subsection{Scale: 1 Million Concurrent Users}
+\subsection{Genre: Role Playing Game}
+Role-playing games (RPG) is the genre we want to study. Most existing MMOGs, like WoW, are RPGs \cite{Knutsson04}. These games allow thousands of concurrent players to interact in a shared game world, which poses a big challenge in network bandwidth. Although other game genres such as real-time strategy (RTS) games and first-person shooter (FPS) games also supports massive concurrent users, these games are often divided into small isolated sessions where a small group of players communicate exclusively within the group \cite{Knutsson04}. Therefore RTS games and FPS games present smaller challenges to the network and are not studied in this project.
 
-\subsection{Active Entities: Players, NPCs, Mutable Objects}
+\subsection{Scale: 1 Million Concurrent Players}
+WoW is the world's most subscribed MMORPG. It has more than 10 million subscribers in worldwide \cite{wow12, Schiano11}. In 2008 its number of concurrent players was reported to reach a peak value of 1 million \cite{wow08}. 
 
-\subsection{Interactions: Player-Player Interaction, Player-NPC/Object Interaction}
+We are interested in the scalability problem because (1) it is one of the major challenges faced by P2P MMOGs and (2) it is directly influenced by the synchronization problem (see \ref{dfsync}). While maintaining game state consistency, we hope to scale our game up. The scale of WoW should act as a reminder of MMOG requirements from the industry.
+
+\subsection{Activities: Raiding and PvP}
+In most MMOGs, the base map, or the land, is immutable. Players experience the virtual world through sensibilities of their avatars. In \cite{Suznjevic08, Suznjevic09}, the authors performed an action-specific analysis of WoW's network traffic and proposed the following taxonomy of game activities:
+\begin{itemize}
+\item Questing: avatars interact with non-player characters (NPCs) in the virtual world.
+\item Dungeons: a small group of five avatars work together to kill a series of more powerful NPCs; each group is isolated from other groups and players; replications of dungeons are instantiated for each group.
+\item Raiding: the same as Dungeons, except that NPCs are more powerful and group size is larger (10, 25 or 40).
+\item Trading: trade of goods between players or between a player and an NPC.
+\item PvP: player versus player combat; number of participants can reach 80.
+\end{itemize}
+Figure \ref{act} reports characteristics of different types of activities. 
+
+
+\begin{figure}
+\begin{center}
+\begin{subfigure}[b]{\textwidth}
+	\begin{center}
+	\includegraphics[scale=0.3]{images/actstar.png}
+	\caption{An overall comparison of various action types. Note that Raiding and PvP combat have higher requirements in multiple dimensions, which may lead to greater challenges to the network.}
+	\end{center}
+\end{subfigure}
+\begin{subfigure}[b]{\textwidth}
+	\begin{center}
+	\includegraphics[scale=0.25]{images/actbw.png}
+	\caption{Bandwidth requirement of action types. The label "Outgoing" means traffic from the client to the server. The label "Incoming" means traffic from the server to the client. Traffic is measured at the client's side. Node that Raiding and PvP combat consume much more bandwidth than the other action types.}
+	\end{center}
+\end{subfigure}
+\begin{subfigure}[b]{\textwidth}
+	\begin{center}
+	\includegraphics[scale=0.3]{images/actltc.png}
+	\caption{Latency requirement of action types. Raiding and PvP combat have the highest requirement in both precision and latency. This means that players actions should be more precise in terms of spatial accuracy when involved in these two activities, and they are given less time to perform these actions. In these scenarios, network latency is an especially sensitive issue.}
+	\end{center}
+\end{subfigure}
+\caption{Player actions evaluated under various metrics. All three graphs excerpted from \cite{Suznjevic09}}
+\label{act}
+\end{center}
+\end{figure}
+
 
 \subsection{Summary: LPP Gameplay}
+
 
 %-------------------------------------------------------------------------------------------------------------------------------------%
 % The Sync Problem
@@ -100,6 +146,7 @@ Potential findings of the project include but are not limited to:
 
 \subsubsection{Security: P2P Is More Prone To Cheating}
 % P2P is more prone to cheating, but C/S is not ideal either
+
 
 %-------------------------------------------------------------------------------------------------------------------------------------%
 % Design of Our Next Planned Game
