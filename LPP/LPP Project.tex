@@ -59,6 +59,7 @@ Potential findings of the project include but are not limited to:
 \end{itemize}
 
 
+
 %-------------------------------------------------------------------------------------------------------------------------------------%
 % MMOGs and our Gameplay
 %-------------------------------------------------------------------------------------------------------------------------------------%
@@ -75,6 +76,7 @@ WoW is the world's most subscribed MMORPG. It has more than 10 million subscribe
 We are interested in the scalability problem because (1) it is one of the major challenges faced by P2P MMOGs and (2) it is directly influenced by the synchronization problem (see \ref{dfsync}). While maintaining game state consistency, we hope to scale our game up. The scale of WoW should act as a reminder of MMOG requirements from the industry.
 
 \subsection{Activities: Raiding and PvP}
+\label{sec:act}
 In most MMOGs, the base map, or the land, is immutable. Players experience the virtual world through sensibilities of their avatars. In \cite{Suznjevic08, Suznjevic09}, the authors performed an action-specific analysis of WoW's network traffic and proposed the following taxonomy of game activities:
 \begin{itemize}
 \item Questing: avatars interact with non-player characters (NPCs) in the virtual world.
@@ -83,8 +85,7 @@ In most MMOGs, the base map, or the land, is immutable. Players experience the v
 \item Trading: trade of goods between players or between a player and an NPC.
 \item PvP: player versus player combat; number of participants can reach 80.
 \end{itemize}
-Figure \ref{act} reports characteristics of different types of activities. 
-
+Figure \ref{act} reports characteristics of different types of activities. Among the five action types Raiding and PvP combat involves the largest number of players, requires most cooperation and communication (figure \ref{actstar}). Consequently, these two types have the highest requirement in bandwidth and latency (figure \ref{actbw} and \ref{actltc}). Because Raiding and PvP combat are so challenging, they deserve serious consideration in our experiment. We emphasis these two forms of activities in the design of our prototype game (see section \ref{lppgp}).
 
 \begin{figure}
 \begin{center}
@@ -92,18 +93,21 @@ Figure \ref{act} reports characteristics of different types of activities.
 	\begin{center}
 	\includegraphics[scale=0.3]{images/actstar.png}
 	\caption{An overall comparison of various action types. Note that Raiding and PvP combat have higher requirements in multiple dimensions, which may lead to greater challenges to the network.}
+	\label{actstar}
 	\end{center}
 \end{subfigure}
 \begin{subfigure}[b]{\textwidth}
 	\begin{center}
 	\includegraphics[scale=0.25]{images/actbw.png}
 	\caption{Bandwidth requirement of action types. The label "Outgoing" means traffic from the client to the server. The label "Incoming" means traffic from the server to the client. Traffic is measured at the client's side. Node that Raiding and PvP combat consume much more bandwidth than the other action types.}
+	\label{actbw}
 	\end{center}
 \end{subfigure}
 \begin{subfigure}[b]{\textwidth}
 	\begin{center}
 	\includegraphics[scale=0.3]{images/actltc.png}
 	\caption{Latency requirement of action types. Raiding and PvP combat have the highest requirement in both precision and latency. This means that players actions should be more precise in terms of spatial accuracy when involved in these two activities, and they are given less time to perform these actions. In these scenarios, network latency is an especially sensitive issue.}
+	\label{actltc}
 	\end{center}
 \end{subfigure}
 \caption{Player actions evaluated under various metrics. All three graphs excerpted from \cite{Suznjevic09}}
@@ -112,7 +116,19 @@ Figure \ref{act} reports characteristics of different types of activities.
 \end{figure}
 
 
-\subsection{Summary: LPP Gameplay}
+\subsection{LPP Gameplay}
+\label{lppgp}
+Our prototype RPG is inspired by Antoine de Saint-Exup\'ery's novel \emph{Le Petit Prince}, which is how it got the name LPP. The novel is about a young and innocent alien prince who left his home planet for a long journey. He traveled to several asteroids and planets and witnessed many people and things that he considers absurd or ``adult-like''. During his stay on the earth, he met a fox who told him:``It is the time you have wasted for your rose that makes your rose so important.'' He tamed the fox, and the fox became unique and important to him. His experience and wisdom grew on this journey.
+
+As mentioned in section \ref{sec:act}, we are primarily interested in player actions similar to Raiding and PvP combat in WoW. Hence the LPP gameplay lies follows:
+\begin{itemize}
+\item Players take up the role of the prince.
+\item The game dynamically instantiates foxes, which are NPCs.
+\item Players try to tame foxes using spells. This corresponds to Questing in WoW.
+\item Players can form large groups to tame foxes. This corresponds to Raiding in WoW.
+\item Players combat with each other to practice their skills in casting a spell. This corresponds to PvP combat in WoW.
+\item As players tame foxes and practices with each other, their wisdom, or experience, grow.
+\end{itemize}
 
 
 %-------------------------------------------------------------------------------------------------------------------------------------%
