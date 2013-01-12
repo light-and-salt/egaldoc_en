@@ -1,9 +1,11 @@
 \documentclass{standalone}
 
-
+\usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{tikz}
 \usetikzlibrary{shapes,shadows,calc}
 \usepackage{subfigure}
+
+
 
 
 \begin{document}
@@ -18,10 +20,11 @@
       				minimum size=6mm,
 				% The border:
       				 very thick,
-     				 draw=red!50!black!50,
+     				 draw=WildStrawberry,
       				% The filling:
-				top color=white,
-				bottom color=red!50!black!20, % and something else at the bottom % Font
+				%fill=Rhodamine,
+				%top color=white,
+				%bottom color=white, % and something else at the bottom % Font
 				font=\itshape
     				},
 				asset/.style={
@@ -30,10 +33,10 @@
 				% The size:
       				minimum size=6mm,
 				% The border:
-      				very thick,draw=cyan!50!black!50,
+      				very thick,draw=RoyalBlue,
       				% The filling:
-				top color=white,
-				bottom color=cyan!50!black!20, % and something else at the bottom % Font
+				%top color=white,
+				%bottom color=cyan!50!black!20!, % and something else at the bottom % Font
 				font=\itshape
     				},
 				event/.style={
@@ -42,10 +45,10 @@
 				% The size:
       				minimum size=6mm,
 				% The border:
-      				very thick,draw=green!50!black!50,
+      				very thick,draw=RedOrange,
       				% The filling:
-				top color=white,
-				bottom color=green!50!black!20, % and something else at the bottom % Font
+				%top color=white,
+				%bottom color=Dandelion, % and something else at the bottom % Font
 				font=\itshape
     				},
 				default/.style={
@@ -54,9 +57,9 @@
 				% The size:
       				minimum size=6mm,
 				% The border:
-      				very thick,draw=black!50,
-   				top color=white,
-				bottom color=black!20,
+      				very thick,draw=Gray,
+   				%top color=white,
+				%bottom color=Gray,
       				% The filling:
 				font=\itshape
     				},
@@ -65,24 +68,27 @@
    % \tikzstyle{asset} = [fill=cyan!15]
    % \tikzstyle{state} = [fill=magenta!15]
    % \tikzstyle{event} = [fill=orange!15]
-    \tikzstyle{level 1} = [sibling distance=60mm]
-    \tikzstyle{level 2} = [sibling distance=30mm]
-    \node [default] {/ndn/ucla.edu/apps/lpp (1)}
-        child { node [asset] {$<$Player ID$>$ (2)} 
-		child { node [state] {state(6)} 
-			child { node [state] {position}}
-			child { node [state] {experience}}
+    \tikzstyle{level 1} = [sibling distance=40mm]
+    \tikzstyle{level 2} = [sibling distance=20mm]
+    \node [default] {/ndn/ucla.edu/apps/lpp}
+        child { node [asset] {players} 
+		child { node [asset] {$<$id$>$} 
+			child { node [state] {update}}
+			child { node [event] {event}}
 		}
-		child { node [event] {event(8)} }
         }
-        child{ node[asset] {$<$Asteroid ID$>$ (3)}
-        		child{ node [asset] {$<$Seedling ID$>$(4)}}
-		child { node [state] {state(7)}}
+        child{ node[asset] {foxes}
+        		child{ node [asset] {$<$id$>$}
+			child { node [state] {update}}
+			child { node [event] {event}}
+		}
         }
-         child{ node [asset] {anti(5)}
-        		child { node [asset] {$<$Player ID$>$}}
-		child { node [asset] {$<$Asteroid ID$>$}
-			child { node [asset] {$<$Seedling ID$>$}}
+         child{ node [asset] {anti}
+        		child { node [asset] {players}
+			child { node [asset] {$<$id$>$}}
+		}
+		child { node [asset] {foxes}
+			child { node [asset] {$<$id$>$}}
 		}
         }
     ;

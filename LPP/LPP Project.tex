@@ -139,9 +139,6 @@ This section tries to shed light on the MOG synchronization problem and its rela
 
 \subsection{Consistency Models: Event Based (P2P) and Update Based (C/S)}
 \label{sec:cm}
-% the graph: fully connected P2P model, obviously not scalable (latency is great, but the bandwidth requirement is too high)
-% If you want it to scale, you will have to trade great latency for scale
-% but you will need a mechanism to limit the latency, like Knutsson did in 2004
 Thousands of players experience a shared virtual world in a MMOG. Media of the virtual world (such as 3D models of the land, buildings, NPCs and characters) and the \emph{game logic} (rules of how this world should function and how its members should interact) are typically installed on the player's machine. In addition to that every player needs a copy of the \emph{game state} in order to learn the evolvement of the world. The game state is the state of the virtual world plus the state of all participating players, NPCs and objects. It is obvious that the game state changes as time passes by. Players interact with the world by generating actions that changes the game state. Because each player has a replication of the game state, a consistency issue arises: copies of game state should always be consistent with each other or else players' opinions of the virtual world would diverge. Researchers have proposed various models and algorithms to ensure such consistency.
 
 Two consistency models exists: event-based and update-based (see figure \ref{fig:cm}) \cite{Gilmore12}. The event-based consistency model is used on fully distributed P2P networks where every peer is directly connected to \emph{all other peers}. Each peer maintains a replication of the global game state and send \emph{event}s that represent the player's action in the virtual world to all other peers. As newer global game state can only be computed when the game logic has sufficient input, i.e. actions of all relevant peers within a relevant time period, each peer actively listens to events published by all other peers. Moreover, due to the uncertainty of transmission delay events may arrive at a peer out of their generation order. Peers need a synchronization algorithm to figure out the generation order of received events in order to compute the correct game state. Common synchronization algorithms are time warp algorithm \cite{Fujimoto99}, trailing state algorithm \cite{Cronin04}, time bucket algorithm \cite{Gautier98, Diot99} and their variations. These algorithms are discussed in section \ref{sec:sa}.
@@ -218,13 +215,11 @@ In \cite{Ferretti05} the author proposed an algorithm to further improve optimis
 \begin{tikzpicture} [scale=0.7, transform shape]
 \tikzstyle{every node}=[draw,shape=circle];
 \node [fill = gray!50] (v0) at (0:0) {S};
-\node (v1) at ( 0:2.4) {S};
-\node (v2) at ( 72:2.6) {S};
+\node (v1) at ( 50:2.4) {S};
 \node (v3) at (2*72:2.5) {S};
 \node (v4) at (3*72:1.8) {C};
 \node (v5) at (4*72:1.7) {C};
 \draw (v0) -- (v1) % star
-(v0) -- (v2)
 (v0) -- (v3)
 (v0) -- (v4)
 (v0) -- (v5);
@@ -262,24 +257,40 @@ In \cite{Ferretti05} the author proposed an algorithm to further improve optimis
 \subsection{Related Problems: Architecture, Interactivity, Scalability, Availability, Security}
 \label{sec:rp}
 
-\subsubsection{Architecture Choice: P2P, C/S, Hybrid}
+\subsubsection{Architecture Choice: P2P or Client/SeverClusters}
 \label{sec:arch}
-% same sync algorithm but on different architectures, will the effect be the same?
+Architecture choice is closely related to the sync problem. MMOGs are typically either P2P or Client/ServerClusters. Even though synchronization algorithms apply to both architectures, the performance might differ. Because servers aggregate client events, in C/S architectures the sync task involves machines but each would have a higher packet rate. On the contrary, in P2P architectures, there are more peers to listen to but they would have lower packet rates. Both the number of participating machines and the packet rate affects sync performance, and the author does not know yet which one is more significant.
 
-\subsubsection{Interactivity: MMOGs are Latency-Sensitive}
-% the interactivity threshold: 100~150ms
-% latency comprises of transmission delay and synchronization delay
+\subsubsection{Interactivity: MMORPGs are Latency-Sensitive}
+\label{sec:int}
+Interactivity is often used to evaluate the performance of a sync algorithm. Interactivity is measured by the latency between a game event's generation time and process time. This is comprised of two parts: the network transmission delay and the synchronization delay (locksteps, rollbacks etc.) \cite{}. The smaller the delay is, the more interactive MMOGs will be. According to literature, the tolerable latency for RPGs is usually between 100ms and 200ms \cite{}.
 
-\subsubsection{Scalability: P2P Is Scalable, But Not Traditional P2P Consistency Model}
-% bandwidth requirement
-% I think P2P requires more bandwidth than C/S does, because the central server gathers information effectively
-% to reduce bandwidth requirement, we MUST exploit Locality of Interest
+The author believes that P2P MOGs enjoy smaller latencies than C/S MOGs do. This is because peer are directly connected with each other and does not need to communicate through the server. However, the author haven't yet found sufficient data that supports this claim. 
 
-\subsubsection{Availability: Robustness of C/S and P2P}
-% P2P is better than C/S, but P2P is not perfect 
+\subsubsection{Scalability: P2P Is Scalable, But Not Its Consistency Model}
+Scalability is related to the consistency models (section \ref{sec:cm}) and the architectural choice (section \ref{sec:arch}). P2P networks are generally believed to be more scalable as they don't have centralized servers which are often bottlenecks. However, with a consistency model in figure \ref{fig:cm}a), the scalability quite limited, as each peer needs to be connected with all other peers. 
 
-\subsubsection{Security: P2P Is More Prone To Cheating}
-% P2P is more prone to cheating, but C/S is not ideal either
+There is a trade-off between scalability and latency. As mentioned in section \ref{sec:int}, fully connected topologies bring smaller latency. But they also degrade scalability. In order to scale P2P games up, \emph{overlay} networks have been used in P2P MOG simulations. For example, in \cite{Knutsson04} the authors used P2P overlay networks and Application Level Multicast (ALM) to scale their P2P MOG up to 4,000 players. When overlay network is used, peers no longer have to be fully connected with each other. The overlay network provides efficient routing for the peers. In Pastry \cite{Lua04} for example, messages are expected to be routed to their destinations within $log_{2^b}N$ routing steps, where $N$ is the number of peers and $b$ is a configuration parameter. When $b = 4$, in a network of 1 million nodes, a message is expected to be routed to its destination within $5$ hops. Figure \ref{fig:hops} illustrates that most multicasted messages were delivered within 2 hops in the 1000 and 4000 players simulation of Knutsson et al. This concludes our example where latency is traded for scalability. The author believes that similar trade-off is also doable in NDN.
+
+It is also worth mentioning that in the simulations in \cite{Knutsson04} ALM infrastructure was used to provide application level multicasting. The authors of the paper reported that ALM degrades game performance. Since NDN is intrinsically multicasting, no ALM will be needed. This is a potential area where NDN could bring performance increase.
+
+Finally, researchers agree that RPGs should exploit players' \emph{locality of interest} to increase their scalability. Players form interest groups. Group members receive the same events. In \cite{Knutsson04} grouping is based on regions (figure \ref{fig:loi}).
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.3]{images/hops.png}
+\caption{Distributions of multicast message hops, using Pastry. 1000/100 denotes 1000 peers in 100 groups. 4000/400 denotes 4000 peers in 400 groups. Figure excerpted from \cite{Knutsson04}}
+\label{fig:hops}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.3]{images/loi.png}
+\caption{Locality of interest. Excerpted from \cite{Knutsson04}.}
+\label{fig:loi}
+\end{center}
+\end{figure}
 
 
 %-------------------------------------------------------------------------------------------------------------------------------------%
@@ -290,9 +301,9 @@ In \cite{Ferretti05} the author proposed an algorithm to further improve optimis
 
 \subsection{Namespace}
 
-\begin{figure}[htbp]
+\begin{figure}
 \begin{center}
-\includegraphics{ObjectTree.pdf}
+\includegraphics[width=\textwidth]{ObjectTree.pdf}
 \caption{Part of LPP's namespace, nodes that contain a ``(sequence number)'' will be explained one by one in this document}
 \label{ns}
 \end{center}
