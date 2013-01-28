@@ -15,12 +15,10 @@
 \author{Zening Qu}
 \maketitle
 
-\abstract
-To be filled.
-
 \tableofcontents
+
 \listoffigures
-\listoftables
+%\listoftables
 \newpage
 
 %-------------------------------------------------------------------------------------------------------------------------------------%
@@ -30,23 +28,21 @@ To be filled.
 \label{itro}
 %Massively Multiplayer Online Games (MMOGs) are gaining research attention these years. The LPP project is an exploration of the design and creation of such games on Named Data Network (NDN). The {consistency}, scalability, availability and security issues of MMOG design are of special interest. As of genre and gameplay, we are interested in creating an Role Playing Game (RPG) inspired by \emph{Le Petit Prince}, which is how this project got its name.
 
-%This document is a snapshot of the current progress of the LPP project. It is aimed for the research group to reflect on the finished work and plan the next steps. It contains an in-progress survey of MMOG design issues in the IP world (section \ref{bg}), a brief description of our previous NDN car racing game (section \ref{prew}) and designs of LPP which is our logical next step (section \ref{nstp}). 
 
-% Define the document, Intended readers
 This document is aimed for the Named Data Networking Multiplayer Online Game (NDN MOG) research group. It is written at a time when a small scale car racing game was implemented and synchronized on the NDN testbed \cite{egalcar}. The author tries to provide a rich background of MOG design, in the hope of fostering the design and evaluation of a more extensive Role Playing Game (RPG) game over NDN. The author does not attempt to bring up too much details about NDN. Interested readers should turn to the project website (\href{http://www.named-data.net/}{http://www.named-data.net/}) and its publication list.
 
 %subject to change as we write on
-In this section we define the project objective and potential findings. Section \ref{ggd} introduces the general game design of our planned RPG game and compares it with characteristics of World of Warcraft (WoW), the representative MOG. The MOG synchronization problem and related design issues are described in section \ref{dfsync}. Finally, section \ref{dslpp} tries to solve the synchronization problem for our RPG game and evaluate the solution. Note that NDN MOG is an on-going project, hence section \ref{dslpp} is merely a best-effort solution for the time being. The document may raise more questions than it answers. Its content (including background and design) is subject to substantial improvement and change.
+In this section we define the project objective and potential findings. Section \ref{ggd} introduces the general game design of our planned RPG game and compares it with characteristics of World of Warcraft (WoW), the representative MOG. The MOG synchronization problem and related design issues are described in section \ref{dfsync}. Finally, section \ref{sec:dslpp} tries to solve the synchronization problem for our RPG game. Note that NDN MOG is an on-going project, hence section \ref{sec:dslpp} is merely a best-effort solution for the time being. The document may raise more questions than it answers. Its content (including background and design) is subject to substantial improvement and change.
 
 \subsection{Project Objective: Explore The Game Synchronization Problem And The Related Problems}
-The primary objective is to explore the game synchronization problem on NDN. Closely related problems such as architecture choice, interactivity and scalability are seriously considered. Other related problems like availability and security are taken into account whenever possible. These problems are depicted in section \ref{dfsync}.
+The primary objective is to explore the game synchronization problem on NDN. Closely related problems such as architecture choice, interactivity and scalability are seriously considered. These problems are depicted in section \ref{dfsync}.
 
 %\subsection{Project Inspiration: P2P MOGs In The IP World}
 %In the industry, the Client/Server (C/S) architecture dominant the MOG world. Large MOGs, or Massively Multiplayer Online Games (MMOGs) like World of Warcraft use clusters of servers to handle its thousands of players despite the high cost, service bottleneck and single point-of-failure brought by the centralized servers \cite{Neumann07, Fan10}. 
 
 %In the academia, there has been debate about P2P architecture's potential for MOGs and MMOGs. Some researchers are very pessimistic: in 2010, Miller et al. predicted that MMOGs with WoW-like scale cannot be deployed using the available P2P scheme \cite{Miller10}. Other researchers find the future of P2P support for MMOGs attractive: in 2004 Knutsson et al. simulated a P2P MOG which scaled up to 4,000 concurrent players \cite{Knutsson04}, and many other P2P schemes were proposed after that \cite{Fan10}. Many researchers agree that the common future of P2P and MMOG remains promising, but for P2P architectures to be a practical alternative of the C/S architecture, many challenges persist: consistency, interactivity, scalability, availability, security etc. \cite{Neumann07, Fan10, Gilmore12}. 
 
-%P2P game synchronization problem is closely related to these challenges that lay ahead (see section \ref{dfsync}). If the synchronization problem is better solved, P2P MOGs are likely to experience a performance increase. Given NDN's many characteristics such as intrinsic multicasting \cite{Jndn}, there is a potential that NDN can provide better support for P2P MMOGs than IP does (see section \ref{dslpp}).
+%P2P game synchronization problem is closely related to these challenges that lay ahead (see section \ref{dfsync}). If the synchronization problem is better solved, P2P MOGs are likely to experience a performance increase. Given NDN's many characteristics such as intrinsic multicasting \cite{Jndn}, there is a potential that NDN can provide better support for P2P MMOGs than IP does (see section \ref{sec:dslpp}).
 
 \subsection{Potential Findings: Impact of NDN On P2P MOGs}
 % subject to change
@@ -54,7 +50,7 @@ Potential findings of the project include but are not limited to:
 \begin{itemize}
 \item A prototype RPG game on NDN, with synchronized game state
 \item An evaluation of the design of the game, regarding consistency, latency, scalability etc.
-\item A library/toolkit that supports the proposed mechanism
+\item A library/toolkit that supports game sync and general MOG development
 \end{itemize}
 
 
@@ -72,7 +68,7 @@ Role-playing games (RPG) is the genre we want to study. Most existing MMOGs, lik
 \subsection{Scale: 1 Million Concurrent Players}
 WoW is the world's most subscribed MMORPG. It has more than 10 million subscribers in worldwide \cite{wow12, Schiano11}. In 2008 its number of concurrent players was reported to reach a peak value of 1 million \cite{wow08}. 
 
-%We are interested in the scalability problem because (1) it is one of the major challenges faced by P2P MMOGs and (2) it is directly influenced by the synchronization problem (see \ref{dfsync}). While maintaining game state consistency, we hope to scale our game up. The scale of WoW should act as a reminder of MMOG requirements from the industry.
+We are interested in the scalability problem because it is closely related to the synchronization problem (see \ref{dfsync}). While maintaining game state consistency, we hope to scale our game up. The scale of WoW should act as a reminder of MMOG requirements from the industry.
 
 \subsection{Activities: Raiding and PvP}
 \label{sec:act}
@@ -98,7 +94,7 @@ Figure \ref{act} reports characteristics of different types of activities. Among
 \begin{subfigure}[b]{\textwidth}
 	\begin{center}
 	\includegraphics[scale=0.25]{images/actbw.png}
-	\caption{Bandwidth requirement of action types. The label "Outgoing" means traffic from the client to the server. The label "Incoming" means traffic from the server to the client. Traffic is measured at the client's side. Node that Raiding and PvP combat consume much more bandwidth than the other action types.}
+	\caption{Bandwidth requirement of action types. The label ``Outgoing'' means traffic from the client to the server. The label ``Incoming'' means traffic from the server to the client. Traffic is measured at the client's side. Node that Raiding and PvP combat consume much more bandwidth than the other action types.}
 	\label{actbw}
 	\end{center}
 \end{subfigure}
@@ -161,7 +157,7 @@ As previously mentioned, both event-based and update-based consistency models ne
 
 The game synchronization problem can be described as follows. Machine A is running a game sync algorithm. It is connected to some other machines. These machines share the same set of data. The data set does not grow but its value changes in a fast pace. All machines that are connected to A may request to update the data set but only A has the authority perform the update. So A has to gather all requests and know their relative order, otherwise the value of the data set would be wrong. In a C/S architecture, this machine A would be the server (figure \ref{fig:archcs}). It would gather client events and publish game updates. In a P2P architecture, this machine A could be any peer (figure \ref{fig:archp2p}), as every peer holds the right to update a certain subset of the global game state. In a hybrid architecture (see section \ref{sec:arch}), this machine A would be one of the cluster servers (figure \ref{fig:archhbr}). It would gather requests from both its clients and its peer cluster servers.
 
-Note that game synchronization problems differs from sync algorithms for other applications (such as file syncing) in that (1) the content to be synced does not grow in size, but changes instead (2) the time constraint is much more tight. Such difference is reflected in the design of game sync algorithms, which emphasis on packet ordering and network latency.
+Note that game synchronization problems differs from sync algorithms for other applications (such as file syncing) in that (1) the content to be synced does not grow in size, but changes its value instead (2) the time constraint is much tighter. Such difference is reflected in the design of game sync algorithms, which emphasis on packet ordering and network latency.
 
 Both conservative and optimistic synchronization algorithms have been proposed. Conservative algorithms are based on lockstep. Arrived events are delayed until it is safe to process them. Optimistic algorithms process arrived events once they are received, but performs game state rollbacks once it receives an event that arrives late. A simulation-based evaluation of these algorithms is shown in figure \ref{fig:sa}, from which we can see that optimistic sync algorithms outperform conservative ones (figure \ref{fig:saclm}). 
 
@@ -268,7 +264,8 @@ Interactivity is often used to evaluate the performance of a sync algorithm. Int
 The author believes that P2P MOGs enjoy smaller latencies than C/S MOGs do. This is because peer are directly connected with each other and does not need to communicate through the server. However, the author haven't yet found sufficient data that supports this claim. 
 
 \subsubsection{Scalability: P2P Is Scalable, But Not Its Consistency Model}
-Scalability is related to the consistency models (section \ref{sec:cm}) and the architectural choice (section \ref{sec:arch}). P2P networks are generally believed to be more scalable as they don't have centralized servers which are often bottlenecks. However, with a consistency model in figure \ref{fig:cm}a), the scalability quite limited, as each peer needs to be connected with all other peers. 
+\label{sec:scl}
+Scalability is related to the consistency models (section \ref{sec:cm}) and the architectural choice (section \ref{sec:arch}). P2P networks are generally believed to be more scalable as they don't have centralized servers which are often bottlenecks. However, with a consistency model in figure \ref{fig:cm}a, the scalability quite limited, as each peer needs to be connected with all other peers. 
 
 There is a trade-off between scalability and latency. As mentioned in section \ref{sec:int}, fully connected topologies bring smaller latency. But they also degrade scalability. In order to scale P2P games up, \emph{overlay} networks have been used in P2P MOG simulations. For example, in \cite{Knutsson04} the authors used P2P overlay networks and Application Level Multicast (ALM) to scale their P2P MOG up to 4,000 players. When overlay network is used, peers no longer have to be fully connected with each other. The overlay network provides efficient routing for the peers. In Pastry \cite{Lua04} for example, messages are expected to be routed to their destinations within $log_{2^b}N$ routing steps, where $N$ is the number of peers and $b$ is a configuration parameter. When $b = 4$, in a network of 1 million nodes, a message is expected to be routed to its destination within $5$ hops. Figure \ref{fig:hops} illustrates that most multicasted messages were delivered within 2 hops in the 1000 and 4000 players simulation of Knutsson et al. This concludes our example where latency is traded for scalability. The author believes that similar trade-off is also doable in NDN.
 
@@ -298,41 +295,58 @@ Finally, researchers agree that RPGs should exploit players' \emph{locality of i
 %-------------------------------------------------------------------------------------------------------------------------------------%
 \section{Designing The Next Game: LPP}
 \label{sec:dslpp}
+This section presents the technical design of our next prototype: the LPP game. General design considerations of the game such as genre, gameplay etc. can be found at section \ref{ggd}. 
 
 \subsection{Namespace}
+Namespace design of the LPP project is illustrated by figure \ref{fig:ns}. All content objects are to be synchronized under the \texttt{/ndn/ucla.edu/apps/lpp} namespace. Each player will be assigned a universally unique id, and will be able to generate both \texttt{update} and \texttt{event}. The name \texttt{update} represents game state of the corresponding player, such as position and experience.  The name \texttt{event} represents the action of the player. For now the only possible action is ``tame''. Players will use this action to tame foxes and combat with each other. Names for NPCs (foxes) are similar to that of players. The \texttt{anti} namespace is explained in section \ref{sec:ms}.
+
+One question is where game state data should be hosted. In C/S architectures, all player and NPC information should be hosted by servers and only servers can update the information (by publishing \texttt{.../players/$<$id$>$/update} and \texttt{.../foxes/$<$id$>$/update} objects). Clients will generate \texttt{event} objects and wait for the result state change. In P2P architectures, player information is hosted on the player's machine, and the player holds the authority to publish his/her own \texttt{update}. Players send \texttt{event} to each other and wait for the result state change in other players. Foxes in P2P games must be assigned \emph{coordinators}, who are active players in the game. The coordinator's machine hosts a fox's state and updates it periodically.
+
+We propose to use different strategies to deliver \texttt{update} and \texttt{event}. Updates are delivered in an unreliable yet ordered way, so no synchronization algorithm is needed in asset dissemination (see section \ref{sec:upd}). Events, however, need to be transmitted both reliably and in order, so we will use an optimistic sync algorithm to guarantee its order (see section \ref{sec:evt}).
 
 \begin{figure}
 \begin{center}
 \includegraphics[width=\textwidth]{ObjectTree.pdf}
-\caption{Part of LPP's namespace, nodes that contain a ``(sequence number)'' will be explained one by one in this document}
-\label{ns}
+\caption{The LPP namespace.}
+\label{fig:ns}
 \end{center}
 \end{figure}
 
-\begin{enumerate}
-\item \emph{/ndn/ucla.edu/apps/lpp}: the topological prefix of the game
-\item \emph{$<$Player ID$>$}: a random number generated in real-time to represent a particular player in the game, this ID is computed in a random manner to (partly) avoid name collisions
-\item \emph{$<$Asteroid ID$>$}: a random, real-time number representing a particular asteroid
-\item \emph{$<$Seedling ID$>$}: a random, real-time number representing a particular seedling who comes out of a particular asteroid
-\item \emph{anti}: this is for asset deletion (publishing an anti-asset corresponds to deleting that particular asset)
-\item \emph{.../$<$Player ID$>$/state}: the current state of a particular player; \emph{position} can be used to provide a global view; \emph{experience} can be used to produce a global rank list
-\item \emph{.../$<$Asteroid ID$>$/state}: the current state of a particular asteroid, which may contain a name list of all players on that asteroid and things like that
-\item \emph{.../$<$Player ID$>$/event}: the action of a particular player
-\end{enumerate}
-
-In figure~\ref{ns}, all blue nodes are recognized as \emph{Asset}s, all red nodes \emph{State}s, green ones \emph{Event}s. We will have more documentations about Asset, State, Event in the future. For now it is sufficient to know that these three types of nodes will be synchronized in three different ways.
+\begin{table}
+\caption{Content of named objects}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+named object & values \\
+\hline
+.../players/$<$id$>$/update & position, experience \\
+\hline
+.../players/$<$id$>$/event & tame \\
+\hline
+.../foxes/$<$id$>$/update & position, health \\
+\hline
+.../foxes/$<$id$>$/event & \\
+\hline
+\end{tabular}
+\end{center}
+\label{tb:content}
+\end{table}%
 
 \subsection{Membership Service and Object Discovery: CCNx Sync}
+\label{sec:ms}
+Players in the same area of interest (AoI) need to know each other's existence and all NPCs' existence. In our previous prototype game this was done using CCNx Sync. For P2P games, CCNx Sync does not require fully connected topologies, which makes the network more scalable. However, network latency may greatly increase when the network scales up. This is because there is no guarantee how long it will take for a message to reach its destination. On contrary, in a P2P overlay network the expected number of hops is within $logN$ (see section \ref{sec:scl}). The author believes that for a P2P MOG to be scalable, a routing mechanism similar to that of overlay networks is necessary.
+
+By the time this document is written, CCNx Sync still persists in the namespace design of LPP, though it is likely to be replaced due to the above mentioned reason. In figure \ref{fig:ns}, all blue-bordered nodes are associated with CCNx Sync. The \texttt{anti} namespace is designed to represent the deletion of a node. For example, when a player exits, there will be an \texttt{.../anti/players/$<$id$>$} node.
 
 \subsection{Unreliable, Ordered Delivery of Updates}
+\label{sec:upd}
+Updates should be delivered in an unreliable, ordered fashion. Update publisher generate new objects periodically and frequently. Update subscriber send NDN Interest packets for the newest updates by setting the \emph{RightmostChild} selector and using the exclusion filter. In this way, the timestamp of received update data packets will be in a non-decreasing order. So no synchronization algorithm is needed for updates. Note that using such delivery is very likely to cause packet loss. But we reason that such loss is tolerable because (1) updates are generated at a high pace (2) losing updates does not hurt game state consistency (3) the lost of packets can be compensated by other mechanisms such as \emph{dead reckoning}.
 
 \subsection{Reliable, Ordered Delivery of Events}
+\label{sec:evt}
+Events are to be synchronized reliably and in order because events will lead to state change, and losing events or confusing their order will lead to inconsistency. Optimistic synchronization algorithms will be used for event synchronization. Performance of candidate synchronization algorithms is presented in figure \ref{fig:sa}.
 
-\subsection{Example of Player-Player Interaction}
-
-\subsection{Example of Player-NPC/Object Interaction}
-
-\subsection{Discussions: Performance}
+Events will be published as Interest packets. The replying Data packet should contain the result state update.
 
 \bibliographystyle{plain}
 \bibliography{MOGRef}
