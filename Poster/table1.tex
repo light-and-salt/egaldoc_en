@@ -1,0 +1,51 @@
+\documentclass{standalone}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{amsmath}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+%\newcommand*\up{\textcolor{green}{%
+%  \ensuremath{\blacktriangle}}}
+%\newcommand*\down{\textcolor{red}{%
+%  \ensuremath{\blacktriangledown}}}
+%\newcommand*\const{\textcolor{darkgray}%
+%  {\textbf{--}}}
+  
+\begin{document}
+
+\begin{center}
+\begin{tikzpicture}
+\node (tbl) {
+\begin{tabularx}{.9\textwidth}{cXrcc}
+\arrayrulecolor{Gray}
+\textbf{Game Functionality} &
+  \textbf{Sync Functionality} & \\
+Game Discovery\rule{0pt}{2.5ex}  &  Broadcast Sync root advise Interests &  \\
+\midrule
+User Join & Add a new object to the Sync slice &  \\
+\midrule
+User Quit & Add an anti-object to the Sync slice &  \\
+\end{tabularx}
+};
+
+
+\begin{pgfonlayer}{background}
+\draw[rounded corners,top color=Gray,bottom color=white,draw=white] ($(tbl.north west)+(0.14,0)$)
+    rectangle ($(tbl.north east)-(0.13,0.9)$);
+\draw[rounded corners,top color=white,bottom color=Gray,draw=white] ($(tbl.south west)+(0.12,0.5)$) 
+    rectangle ($(tbl.south east)-(0.12,0)$);
+\draw[top color=white,bottom color=white,draw=white]($(tbl.north east)-(0.13,0.6)$)
+    rectangle ($(tbl.south west)+(0.13,0.2)$);
+\end{pgfonlayer}
+
+
+\end{tikzpicture}
+\end{center}
+
+\end{document}

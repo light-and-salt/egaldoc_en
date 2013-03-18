@@ -1,0 +1,539 @@
+% Template file for an a0 portrait poster.
+% Written by Graeme, 2001-03 based on his SOC poster.
+%
+% See discussion and documentation at
+% <http://www.astro.gla.ac.uk/users/norman/docs/posters/> 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Modified by Jozef Dobo\v{s} (c) 2011 % 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a0,portrait,svgnames]{a0poster}
+% You might find the 'draft' option to a0 poster useful if you have
+% lots of graphics, because they can take some time to process and
+% display. (\documentclass[a0,draft]{a0poster})
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+\pagestyle{empty}
+\setcounter{secnumdepth}{0}
+\usepackage[absolute]{textpos}
+\usepackage{txfonts}
+\usepackage{wrapfig,times}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{forloop}
+\usepackage[margin=0cm]{geometry}
+\usepackage{pgfornament}
+\usepackage {mdwlist}
+\usepackage{tikz}
+\usetikzlibrary{shapes,shadows,calc}
+\usepackage{subfigure}
+
+
+
+
+%%%%%%%%%%
+% Colors %
+%%%%%%%%%%
+
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\definecolor{TitleColor}{rgb}{1,1,1} % white
+\definecolor{BannerOneColor}{rgb}{0,0,0} % pitch black
+\definecolor{BannerTwoColor}{rgb}{0.93,0.08,0.31} % pinky red
+\definecolor{BannerThreeColor}{rgb}{0,0.27,0.48} % dark blue
+\definecolor{BannerFourColor}{rgb}{0.33,0.19,0.098} % brown
+\definecolor{BannerSixColor}{rgb}{0,0.27,0.42} % dark blue
+\definecolor{BannerSevenColor}{rgb}{0.62,0.77,0.86} % sky blue
+\definecolor{BannerEightColor}{rgb}{0.35,0.33,0.01} % military green
+\definecolor{BannerNineColor}{rgb}{0.85,0.86,0.34} % lime green
+\definecolor{BannerTenColor}{rgb}{0,0.66,0.80} % strong blue
+\definecolor{BannerElevenColor}{rgb}{0.46,0,0.20} % maroon
+\definecolor{BannerTwelveColor}{rgb}{0.37,0.32,0.44} % dark washed violet
+\definecolor{BannerThirteenColor}{rgb}{0.79,0.84,0.65} % light washed green
+\definecolor{BannerFourteenColor}{rgb}{0.57,0.64,0.27} % dark washed green
+\definecolor{BannerFifteenColor}{rgb}{0.92,0.91,0.88} % unusable washed 
+\definecolor{BannerSixteenColor}{rgb}{0.94,0.36,0.14} % strong orange
+\definecolor{BannerSeventeenColor}{rgb}{0.97,0.61,0.19} % orange
+\definecolor{BannerEighteenColor}{rgb}{0.99,0.76,0.11} % mustard yellow
+\definecolor{BannerNineteenColor}{rgb}{0.79,0.76,0.73} % light gray-ish
+\definecolor{BannerTwentyColor}{rgb}{0.63,0.58,0.54} % dark gray-ish
+\usepackage{xcolor}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only change here to affect all headings            %
+\newcommand{\headingcolor}{\color{BannerFourteenColor}} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% see documentation for a0poster class for the size options here
+\let\Textsize\normalsize
+\def\Head#1{\noindent\hbox to \hsize{\hfil{\LARGE \headingcolor #1}}\bigskip}
+
+\def\LHead[#1]#2{
+\begin{center}
+\pgfornament[width = 1.5cm, anchor=south, color = #1]{2}
+\noindent{\LARGE \textcolor{#1}{#2}}
+\pgfornament[width = 1.5cm, anchor=south, symmetry=v, color = #1]{2}
+ \end{center}
+}
+
+\def\Authors#1{\noindent{\LARGE #1}\smallskip}
+
+\def\Subhead#1{
+%\pgfornament[width = 0.8cm, anchor=south, color = BannerTwoColor]{24}
+\noindent{\large \textcolor{BannerFourteenColor}{#1}}
+%\pgfornament[width = 1.5cm, anchor=south, color = BannerTwoColor]{14}
+}
+
+\def\Title#1{\noindent{\VeryHuge #1}}
+
+
+% Set up the grid
+%
+% Note that [0cm,0cm] is the margin round the edge of the page --
+% it is _not_ the grid size. That is always defined as 
+% PAGE_WIDTH/HGRID and PAGE_HEIGHT/VGRID. In this case we use
+% 25 x 25. This gives us three wide columns for text (7 grid
+% spacings) and four narrow columns (1 each) at each side of these 
+% text columns
+%
+% Note however that texblocks can be positioned fractionally as well,
+% so really any convenient grid size can be used.
+%
+
+% [margin, margin]{rows}{cols}
+\TPGrid[0cm,0cm]{25}{25}  % 1 - 7 - 1 - 7 - 1 - 7 -1 Columns
+
+
+% Mess with these as you like
+\parindent=0pt
+%\parindent=1cm
+\parskip=0.5\baselineskip
+\linespread{1.2}
+
+% abbreviations
+\newcommand{\ddd}{\,\mathrm{d}}
+
+\begin{document}
+
+% Understanding textblocks is the key to being able to do a poster in
+% LaTeX. In
+%
+%    \begin{textblock}{width}(x,y)
+%    ...
+%    \end{textblock}
+%
+% the first argument gives the block width in units of the grid
+% cells specified above in \TPGrid; the second gives the (x,y)
+% position on the grid, with the y axis pointing down.
+
+%%%%%%%%%%%%%%
+% Top Banner %
+%%%%%%%%%%%%%%
+% if you change this part, you can get matching color for headings
+% in Colors section above
+
+%\pagecolor{BannerFifteenColor}
+
+
+%============================================================================%
+% Borders
+%============================================================================%
+
+% overview
+\begin{textblock}{24}(0.7,2.7)
+\begin{tikzpicture}
+\path [line width = 0.2cm, BannerFourteenColor, rounded corners=50, fill=BannerFifteenColor](0, 0) rectangle (79, 31);
+%\draw [line width = 0.2cm, BannerFourteenColor, dashed] (53,0) -- (53,31);
+\end{tikzpicture}
+\end{textblock}
+
+
+% sync
+\begin{textblock}{16}(0.7,9.7)
+\begin{tikzpicture}
+\path [line width = 0.2cm, BannerFourteenColor, rounded corners=50, fill=BannerThirteenColor](0, 0) rectangle (52, 37);
+\end{tikzpicture}
+\end{textblock}
+
+% architecture
+\begin{textblock}{10}(16.7,9.7)
+\begin{tikzpicture}
+\path [line width = 0.2cm, BannerFourteenColor, rounded corners=50, fill=BannerNineteenColor](0, 0) rectangle (25.5, 37);
+\end{tikzpicture}
+\end{textblock}
+
+
+
+% new prototype
+\begin{textblock}{10}(0.7,18)
+\begin{tikzpicture}
+\path [line width = 0.2cm, BannerFourteenColor, rounded corners=50, fill=BannerFourteenColor](0, 0) rectangle (25.5, 23);
+\end{tikzpicture}
+\end{textblock}
+
+
+% conclusion
+\begin{textblock}{16}(8.7,18)
+\begin{tikzpicture}
+\path [line width = 0.2cm, BannerFourteenColor, rounded corners=50, fill=BannerFifteenColor](0, 0) rectangle (52, 23);
+\end{tikzpicture}
+\end{textblock}
+
+
+
+%============================================================================%
+% Title %
+%============================================================================%
+\begin{textblock}{25}(-0,-0.1)
+\includegraphics[width=\paperwidth, height=7cm]{banners/banner14.pdf}
+\end{textblock}
+
+\begin{textblock}{25}(0.75,0.35)
+{
+\color{TitleColor}
+{\Title{Multiplayer Online Games Over Named Data Network}}
+}
+\end{textblock}
+
+\begin{textblock}{4}(22,0.3)
+\pgfornament[width = 8cm,color = white]{20} 
+\end{textblock}
+
+%============================================================================%
+% Authors
+%============================================================================%
+\begin{textblock}{5}(0.75,1.75)
+\Authors{Zening Qu}  \\
+\texttt{quzening@remap.ucla.edu}
+\end{textblock}
+
+\begin{textblock}{5}(5,1.75)
+\Authors{Jeff Burke}  \\
+\texttt{jburke@remap.ucla.edu}
+\end{textblock}
+
+\begin{textblock}{15}(9,1.75)
+\textcolor{BannerFourteenColor}{\LARGE 
+\pgfornament[width = 1cm,anchor=south,color = BannerFourteenColor]{12} 
+Maintain game consistency among players.
+\pgfornament[width = 1cm,anchor=south, color = BannerFourteenColor]{12} 
+Exploit emerging Sync primitives. \\
+\pgfornament[width = 1cm,anchor=south, color = BannerFourteenColor]{12} 
+Inform NDN-based game development and synchronization protocol choices.}
+\end{textblock}
+
+%============================================================================%
+% Background
+%============================================================================%
+
+\begin{textblock}{7}(1,3)
+ 
+ \LHead[BannerFourteenColor]{Background}
+Multiplayer online games (MOGs) are interesting as an application domain of Named Data Network (NDN):
+
+\begin{itemize*}
+\item Huge amount of packets need to exchanged at high frequency by each instance of MOG. This makes games an appropriate test for NDN distribution efficiency.
+\item Synchronization mechanisms are needed for MOGs to maintain game state consistency, and they exhibit fundamental influences on the game performances. Emerging NDN primitives such as Sync\footnotemark~can be exploited and evaluated in the game context.
+\item MOGs are also good test cases for the NDN security model. Player authentication and cheating prevention are of special importance to MOGs.
+\end{itemize*}
+
+
+\begin{center}
+  \resizebox{6\TPHorizModule}{!}{
+  \includegraphics [height=3.2cm]{images/wow.png}
+  \includegraphics [height=3.2cm]{images/quake.png}
+  \includegraphics[height=3.2cm]{images/ff.jpeg}}
+\\{\bfseries Figure 1:} Examples of multiplayer online games: World of Warcraft\footnotemark, Quake\footnotemark and Final Fantasy\footnotemark.
+\end{center}
+  
+  
+
+
+\end{textblock}
+
+%============================================================================%
+% Work Accomplished Continue
+%============================================================================%
+
+\begin{textblock}{7}(9,3)
+ \LHead[BannerFourteenColor]{Past Work}
+ 
+This project explored ways to easily synchronize a simple multiplayer car racing game in a peer-to-peer fashion.
+\begin{itemize*}
+\item CCNx Sync was employed for game discovery as well as object discovery.
+\item Basic Interest\slash Data exchange was used for state synchronization (see section Synchronization).
+\end{itemize*}
+
+Project products include:
+\begin{itemize*}
+\item Egal Car, a prototype car racing game (see figure 2);
+\item Egal, C\# bindings for Xerox PARC's CCNx library, including its new Sync protocol, usable in Unity game engine.
+\end{itemize*}
+
+ \begin{center}
+  \resizebox{7\TPHorizModule}{!}{
+  \includegraphics{images/1.png}
+%  \includegraphics{images/2.png}}
+  \includegraphics{images/3.png}
+  \includegraphics{images/4.png}}
+\\{\bfseries Figure 2:} Screenshots of Egal Car, the project's prototype game.
+\end{center}
+
+\end{textblock}
+
+%============================================================================%
+% Upcoming
+%============================================================================%
+\begin{textblock}{7}(17,3)
+ \LHead[BannerFourteenColor]{Future Work}
+
+Goals for future work:
+\begin{itemize*}
+\item Explore the synchronization mechanism of more complex game events such as inter-user and user-object interactions.
+\item Evaluate the scalability of NDN-based peer-to-peer games.
+\item Study authentication and anti-cheating problems in more detail and provide some preliminary solutions based on NDN's signature-based trust model.
+\end{itemize*}
+
+These goals lead to the design of a new prototype game:
+\begin{itemize*}
+\item Game genres such as role playing games (RPG) are preferred, as they usually contain rich interactions between users and objects.
+\item A capacious scene is needed to test the game's scalability (the ability to hold a large number of concurrent players).
+\item Reasonably complex gameplay is needed to hint and simulate the realistic security and synchronization requirements of MOGs.
+\end{itemize*}
+
+Please see section New Prototype for the design of our new RPG game.
+%The current prototype is simple in gameplay and small in scale compared to its commercial contemporaries. A more extensive prototype game should be implemented to convincingly demonstrate system performance. For scalability and efficiency tests, this prototype needs to boast more objects and contain rich inter-player interactions.
+
+%The planned next step is a role playing game (RPG) inspired by Le Petit Prince. (See section New Prototype)
+
+%\begin{center}
+%  \resizebox{5\TPHorizModule}{!}{
+%  \includegraphics{images/lpp.png}
+% }
+%\\{\bfseries Figure 3:} Concept sketches of the next prototype game.
+%\end{center}
+
+
+\end{textblock}
+
+
+
+%============================================================================%
+% Namespace
+%============================================================================%
+\begin{textblock}{7}(1,10)
+ \LHead[BannerFourteenColor]{Synchronization}
+
+Two classes of data updates shall be synchronized in Egal Car:
+\begin{itemize*}
+\item \emph{Asset}s, which change slowly and unpredictably;
+\item \emph{State}s, which change quickly and predictably;
+\end{itemize*}
+%We approach asset and state synchronization synchronization differently to explore the requirements and constraints of slowly and quickly changing data. In the future RPG prototype, we will also include event synchronization.
+ 
+Their names form a tree in the game's namespace (see figure 3).
+  
+% We identified the data to be synchronized within a namespace design that accounts for the assets and relevant state of the single-player application used as the basis for Egal Car. 
+  
+\begin{center}
+  \resizebox{5\TPHorizModule}{!}{
+  \includegraphics{ObjectTree.pdf}
+ }
+\\{\bfseries Figure 3:} Part of namespace of Egal Car. Asset names and State names are shown in green and red respectively.
+\end{center}
+
+%Asset updates include asset creation and deletion, controlled by player login and logout. State updates include change of properties of the assets as well as global game state.
+
+ 
+ \begin{center}
+  \resizebox{6\TPHorizModule}{!}{
+  \includegraphics{table1.pdf}
+ }
+\\{\bfseries Table 1:} Egal Car game functionalities and the corresponding Sync actions.
+\end{center}
+
+
+ \begin{center}
+  \resizebox{6\TPHorizModule}{!}{
+  \includegraphics{table2.pdf}
+ }
+\\{\bfseries Table 2:} Comparing Asset, State and Event synchronization.
+\end{center}
+
+% Asset synchronization, specifically player entry and exit, is implemented with Sync, a relatively new primitive in the NDN architecture. Game discovery and Asset discovery are done by discovering 
+ 
+
+
+\end{textblock}
+
+
+%============================================================================%
+% Sync
+%============================================================================%
+\begin{textblock}{7}(9,10)
+ 
+  \Subhead{Asset Synchronization}
+  
+Asset synchronization, specifically player entry and exit, is implemented with Sync in a broadcast namespace (see Table 1). 
+
+This mechanism is unordered yet reliable, as Asset updates are \emph{uncorrelated} in Egal Car.
+  
+ \Subhead{State Synchronization}
+ 
+State updates are snapshots of asset\slash global properties which are also uncorrelated. State synchronization should be ordered for visual rendering consistency but does not need to be reliable as newer updates will always \emph{overwrite} the older ones.
+ 
+Normal NDN Interest\slash Data packets are used for implementation:
+\begin{itemize*}
+\item \emph{Exclusion Filter:} exclude updates that are already learnt
+\item \emph{Rightmost Child Selector:} request the latest update, with undelivered ones dropped
+\end{itemize*}
+
+%State synchronization is ordered, but not reliable. Egal Car state updates are snapshots rather than change logs; newer state updates will always represent the object state overwrite for a given peer. For consistency of visual rendering, they should be ordered, with undelivered state updates dropped.
+
+%In Egal Car, each player’s instance issues Interests for the state updates that it wants to follow, and maintains a timestamp floor for each state update series. The \emph{rightmost child selector} is set and an \emph{exclusion filter} is used to exclude data with versions less than or equal to the timestamp floor.
+ 
+  \Subhead{Event Synchronization}
+ 
+% Egal Car's synchronization mechanism does not apply to game genres like RPG as they have numerous user interactions. Studying a new model to describe interactions and a synchronization strategy to meet its requirements is planned for the future.
+ 
+%The current model in design is Events. Event synchronization will be ordered and reliable as event updates are correlated. In addition to timestamps, sequence number will be incorporated into names for peers to track event update series. Rollbacks will be performed for event updates that arrive late.
+ 
+Event synchronization the future model to describe updates that are \emph{correlated}---user-user interactions and user-object interactions.
+
+This mechanism shall be ordered and reliable. In addition to timestamps, sequence number will be incorporated into names for peers to track event update series. Rollbacks will be performed for event updates that arrive late.
+ 
+Please see Table 2 for a comparison of the three mechanisms. 
+\end{textblock}
+
+
+%============================================================================%
+% Event Sync
+%============================================================================%
+\begin{textblock}{7}(17,10)
+
+ \LHead[gray!10!]{Architecture}
+ 
+ Egal Car is adapted from Unity's single-player car race tutorial\footnotemark. The gameplay has been left intact, and the project's network module makes the tutorial a Peer-to-Peer multiplayer online game.
+ 
+ The network module builds on the CCNx libraries (see figure 4):
+ \begin{itemize*}
+ \item \emph{CCNx Daemon} provides basic Named Data Networking support, such as sending and receiving Interest and Data packets;
+ \item \emph{Repository Daemon} manages read/write requests;
+ \item \emph{CCNx Sync} manages repository contents.
+ \end{itemize*}
+  
+The Egal network module is where asset and state synchronization is implemented. It contains C\# scripts for Unity and two C libraries: CCNx Library and Egal Library. The InteropServices of the .NET Framework are used to invoke C functions from C\# and vice versa.
+ 
+ \begin{center}
+  \resizebox{6\TPHorizModule}{!}{
+  \includegraphics{Architecture.pdf}
+ }
+\\{\bfseries Figure 4:} Architecture of prototype game application.
+\end{center}
+
+\end{textblock}
+
+
+
+
+%============================================================================%
+% Architecture
+%============================================================================%
+
+\begin{textblock}{7}(1,18.3)
+
+
+ 
+ \LHead[BannerFifteenColor]{New Prototype}
+
+ 
+The new game prototype is an RPG in which gameplay is inspired by Le Petit Prince (see figure 5).
+ 
+Real-world data will be used to simulate the large-scale dynamic creation of game objects and the real-time decisions made by players.
+ 
+ 
+  \begin{center}
+  \resizebox{4\TPHorizModule}{!}{
+  \includegraphics[]{images/lpp.png}
+  } 
+\\{\bfseries Figure 5:} Concept sketches of the next prototype game.
+\end{center}
+
+
+%This prototype will serve as an appropriate test for game scaling test as well as data diffusion into distributed simulation.
+
+%The security requirements of the RPG will also inform an exploration of social-network based trust and signature based authentication mechanism of NDN.
+
+\end{textblock}
+
+%============================================================================%
+% Next Steps
+%============================================================================%
+\begin{textblock}{7}(9,18.3)
+
+ \LHead[BannerFourteenColor]{Conclusions}
+ 
+ %This project developed a straightforward synchronization mechanism for simple car racing games over NDN, using the CCNx sync protocol and bindings created for the Unity game engine. The mechanism was implemented in a prototype game, Egal Car, and organized into an open-source synchronization library, Egal, to support future NDN game developers. Also explored was the workflow of NDN-based multiplayer game development. 
+ 
+% Collection synchronization approaches using named data appear to hold promise for streamlining development and performance of multiplayer online games and distributed simulation, especially in terms of simplifying development and deployment of peer-to-peer architecture. For simple games like Egal Car, where updates are independent of each other, default unordered and unreliable synchronization 
+
+\begin{itemize*}
+\item The workflow of NDN-based multiplayer game development was explored, including namespace design and name classification.
+\item Unordered collection synchronization approaches hold promise for streamlining development and performance of multiplayer online games and distributed simulation, especially in simplifying development and deployment of peer-to-peer architecture.
+\item The impacts of the unreliable nature of basic interest/data exchange were explored, which shows its strengths in synchronizing uncorrelated, quickly changing data.
+\item The mechanisms were implemented in a prototype game, Egal Car, and organized into an open-source synchronization library, Egal, to support future NDN game developers. 
+\end{itemize*}
+
+
+\end{textblock}
+
+%============================================================================%
+% Conclusions
+%============================================================================%
+\begin{textblock}{7}(17,18.3)
+ 
+% strategies can be used to deliver expected interactivity without hurting consistency. Future work will be required to meet the synchronization requirements of more complex online virtual environments.
+
+%Project findings:
+\begin{itemize*}
+\item A new model is required for the synchronization of correlated data updates. The proposed model is Event synchronization, which trades off interactivity for consistency.
+\item A more extensive game prototype planned to test the new synchronization model and study the related problems such as authentication and anti-cheating.
+\end{itemize*}
+
+\vspace{1cm}
+\LHead[BannerFourteenColor]{Acknowledgements}
+Thanks to Alex Horn and Alessandro Marianantoni of REMAP for their help testing the sample application, Ren Rong for the sketches of the next prototype game, and Professor Lixia Zhang for feedback on the architecture. We are grateful to NSF for generous funding under NSF FIA Award.
+
+ \end{textblock}
+
+
+
+
+% If you want to add a figure do something like this:
+%\begin{textblock}{3}(1,15)
+%  \begin{center}
+%  \resizebox{3\TPHorizModule}{!}{\includegraphics{images/group-logo.pdf}}
+%\\{\bfseries Figure 5:} caption
+%  \end{center}
+%\end{textblock}
+
+\begin{textblock}{20}(4,23)
+ \Head{References}
+ \vspace{-2cm}
+ \flushright \footnotesize 1. CCNx Synchronization Protocol \texttt{http://www.ccnx.org/releases/latest/doc/technical/SynchronizationProtocol.html} 2. Image source: World of Warcraft \texttt{http://us.battle.net/wow/en} 3. Image source: Quake \texttt{http://www.quakeforge.net} 4. Image source: Final Fantasy \texttt{http://www.finalfantasyxiv.com} 5. Unity Car Tutorial \texttt{http://unity3d.com/support/resources/tutorials/car-tutorial}
+ \end{textblock}
+
+
+
+% Place the group logo at the bottom left - visually this balances
+% well with the University logo at the top right. 
+\begin{textblock}{4}(0.75,23)    
+%\resizebox{1.5\TPHorizModule}{!}{
+\includegraphics[width=9cm]{images/REMAP-Logo-vector.pdf}
+%}
+\end{textblock}
+
+
+
+\end{document}
+

@@ -1,0 +1,20 @@
+\contentsline {section}{\numberline {1}Introduction: Objective, Inspiration and Potential Findings}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Project Objective: Explore The Game Synchronization Problem And The Related Problems}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Potential Findings: Impact of NDN On P2P MOGs}{2}{subsection.1.2}
+\contentsline {section}{\numberline {2}General Game Design: LPP and WoW}{2}{section.2}
+\contentsline {subsection}{\numberline {2.1}Genre: Role Playing Game}{2}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Scale: 1 Million Concurrent Players}{3}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Activities: Raiding and PvP}{3}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}LPP Gameplay}{3}{subsection.2.4}
+\contentsline {section}{\numberline {3}The Synchronization Problem and Related Problems}{5}{section.3}
+\contentsline {subsection}{\numberline {3.1}Consistency Models: Event Based (P2P) and Update Based (C/S)}{5}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Synchronization Algorithms: Conservative and Optimistic}{5}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Related Problems: Architecture, Interactivity, Scalability, Availability, Security}{8}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}Architecture Choice: P2P or Client/SeverClusters}{8}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}Interactivity: MMORPGs are Latency-Sensitive}{8}{subsubsection.3.3.2}
+\contentsline {subsubsection}{\numberline {3.3.3}Scalability: P2P Is Scalable, But Not Its Consistency Model}{8}{subsubsection.3.3.3}
+\contentsline {section}{\numberline {4}Designing The Next Game: LPP}{8}{section.4}
+\contentsline {subsection}{\numberline {4.1}Namespace}{10}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Membership Service and Object Discovery: CCNx Sync}{10}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Unreliable, Ordered Delivery of Updates}{11}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Reliable, Ordered Delivery of Events}{11}{subsection.4.4}

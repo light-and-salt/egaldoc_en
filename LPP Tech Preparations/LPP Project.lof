@@ -1,0 +1,7 @@
+\contentsline {figure}{\numberline {1}{\ignorespaces Player actions evaluated under various metrics. All three graphs excerpted from \cite {Suznjevic09}\relax }}{4}{figure.caption.3}
+\contentsline {figure}{\numberline {2}{\ignorespaces Consistency Models. Excerpted from \cite {Gilmore12}\relax }}{6}{figure.caption.4}
+\contentsline {figure}{\numberline {3}{\ignorespaces Synchronization in different architectures. C stands for client. S stands for server. P stands for peer. The shaded node represents the node that is running a game synchronization algorithm.\relax }}{6}{figure.caption.5}
+\contentsline {figure}{\numberline {4}{\ignorespaces Latency of various synchronization algorithms. CS stands for conservative synchronization. TW stands for time warp, which is representative of optimistic sync algorithms. OOS is a variation of time warp which was proposed by the author of \cite {Ferretti05}. COS-1, COS-2 are CS variations. Both graphs are excerpted from the same paper.\relax }}{7}{figure.caption.6}
+\contentsline {figure}{\numberline {5}{\ignorespaces Distributions of multicast message hops, using Pastry. 1000/100 denotes 1000 peers in 100 groups. 4000/400 denotes 4000 peers in 400 groups. Figure excerpted from \cite {Knutsson04}\relax }}{9}{figure.caption.7}
+\contentsline {figure}{\numberline {6}{\ignorespaces Locality of interest. Excerpted from \cite {Knutsson04}.\relax }}{9}{figure.caption.8}
+\contentsline {figure}{\numberline {7}{\ignorespaces The LPP namespace.\relax }}{10}{figure.caption.9}

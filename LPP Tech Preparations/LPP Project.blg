@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (TeX Live 2011)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: LPP Project.aux
+The style file: plain.bst
+Database file #1: MOGRef.bib
+You've used 15 entries,
+            2118 wiz_defined-function locations,
+            601 strings with 7180 characters,
+and the built_in function-call counts, 5701 in all, are:
+= -- 585
+> -- 237
+< -- 9
++ -- 97
+- -- 78
+* -- 375
+:= -- 894
+add.period$ -- 48
+call.type$ -- 15
+change.case$ -- 84
+chr.to.int$ -- 0
+cite$ -- 15
+duplicate$ -- 233
+empty$ -- 446
+format.name$ -- 78
+if$ -- 1245
+int.to.chr$ -- 0
+int.to.str$ -- 15
+missing$ -- 11
+newline$ -- 78
+num.names$ -- 30
+pop$ -- 91
+preamble$ -- 1
+purify$ -- 69
+quote$ -- 0
+skip$ -- 194
+stack$ -- 0
+substring$ -- 373
+swap$ -- 82
+text.length$ -- 9
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 60
+warning$ -- 0
+while$ -- 56
+width$ -- 17
+write$ -- 176

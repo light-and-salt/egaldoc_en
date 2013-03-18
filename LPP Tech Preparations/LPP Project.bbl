@@ -1,0 +1,102 @@
+\begin{thebibliography}{10}
+
+\bibitem{Cronin04}
+Eric Cronin, AnthonyR. Kurc, Burton Filstrup, and Sugih Jamin.
+\newblock An efficient synchronization mechanism for mirrored game
+  architectures.
+\newblock {\em Multimedia Tools and Applications}, 23:7--30, 2004.
+
+\bibitem{Diot99}
+C.~Diot and L.~Gautier.
+\newblock A distributed architecture for multiplayer interactive applications
+  on the internet.
+\newblock {\em Network, IEEE}, 13(4):6--15, July/August 1999.
+
+\bibitem{Fgame}
+S.~Ferretti.
+\newblock {\em {Interactivity maintenance for event synchronization in massive
+  multiplayer online games}}.
+\newblock PhD thesis, University of Bologna, 2005.
+
+\bibitem{Ferretti05}
+Stefano Ferretti and Marco Roccetti.
+\newblock Fast delivery of game events with an optimistic synchronization
+  mechanism in massive multiplayer online games.
+\newblock In {\em Proceedings of the 2005 ACM SIGCHI International Conference
+  on Advances in computer entertainment technology}, ACE '05, pages 405--412,
+  New York, NY, USA, 2005. ACM.
+
+\bibitem{Fujimoto99}
+R.M. Fujimoto.
+\newblock Parallel and distributed simulation.
+\newblock In {\em Simulation Conference Proceedings, 1999 Winter}, volume~1,
+  pages 122--131, 1999.
+
+\bibitem{Gautier98}
+L.~Gautier and C.~Diot.
+\newblock Design and evaluation of mimaze a multi-player game on the internet.
+\newblock In {\em Multimedia Computing and Systems, 1998. Proceedings. IEEE
+  International Conference on}, pages 233--236, June/July 1998.
+
+\bibitem{Gilmore12}
+J.S. Gilmore and H.A. Engelbrecht.
+\newblock A survey of state persistency in peer-to-peer massively multiplayer
+  online games.
+\newblock {\em Parallel and Distributed Systems, IEEE Transactions on},
+  23(5):818--834, May 2012.
+
+\bibitem{Knutsson04}
+B.~Knutsson, Honghui Lu, Wei Xu, and B.~Hopkins.
+\newblock Peer-to-peer support for massively multiplayer games.
+\newblock In {\em INFOCOM 2004. Twenty-third AnnualJoint Conference of the IEEE
+  Computer and Communications Societies}, volume~1, pages xxxv+2866, March
+  2004.
+
+\bibitem{wow08}
+The9 Limited.
+\newblock Blizzard entertainment's world of warcraft: The burning crusade
+  surpasses one million peak concurrent player milestone in mainland china.
+\newblock \url{http://www.the9.com/en/news/2008/news_080411.html}, April 2008.
+
+\bibitem{Lua04}
+Keong Lua, J.~Crowcroft, M.~Pias, R.~Sharma, and S.~Lim.
+\newblock {A survey and comparison of peer-to-peer overlay network schemes}.
+\newblock {\em Communications Surveys \& Tutorials, IEEE}, pages 72--93, March
+  2004.
+
+\bibitem{wow12}
+Acquire Media and Blizzard~Entertainment Inc.
+\newblock Alliance and horde armies grow with launch of mists of pandaria.
+\newblock
+  \url{http://www.vivendi.com/wp-content/uploads/2012/10/121004_ATVI_Alliance-and-Horde-Armies-Grow-with-Launch-of-Mists-of-Pandaria1.pdf},
+  October 2012.
+
+\bibitem{egalcar}
+Zening Qu and Jeff Burke.
+\newblock Egal car: A peer-to-peer car racing game synchronized over named data
+  networking.
+\newblock Technical report, UCLA, October 2012.
+
+\bibitem{Schiano11}
+Diane~J. Schiano, Bonnie Nardi, Thomas Debeauvais, Nicolas Ducheneaut, and
+  Nicholas Yee.
+\newblock A new look at world of warcraft's social landscape.
+\newblock In {\em Proceedings of the 6th International Conference on
+  Foundations of Digital Games}, FDG '11, pages 174--179, New York, NY, USA,
+  2011. ACM.
+
+\bibitem{Suznjevic09}
+Mirko Suznjevic, Ognjen Dobrijevic, and Maja Matijasevic.
+\newblock Mmorpg player actions: Network performance, session patterns and
+  latency requirements analysis.
+\newblock {\em Multimedia Tools and Applications}, 45:191--214, 2009.
+
+\bibitem{Suznjevic08}
+Mirko Suznjevic, Maja Matijasevic, and Ognjen Dobrijevic.
+\newblock Action specific massive multiplayer online role playing games traffic
+  analysis: case study of world of warcraft.
+\newblock In {\em Proceedings of the 7th ACM SIGCOMM Workshop on Network and
+  System Support for Games}, NetGames '08, pages 106--107, New York, NY, USA,
+  2008. ACM.
+
+\end{thebibliography}

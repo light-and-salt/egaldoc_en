@@ -1,0 +1,53 @@
+This is BibTeX, Version 0.99d (TeX Live 2011)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: egalcar.aux
+The style file: plain.bst
+Database file #1: sample.bib
+Warning--I'm ignoring Flockstep's extra "author" field
+--line 71 of file sample.bib
+Warning--I'm ignoring Bryant's extra "address" field
+--line 90 of file sample.bib
+Warning--empty institution in Bryant
+Warning--can't use both volume and number fields in Doptbkt
+You've used 13 entries,
+            2118 wiz_defined-function locations,
+            583 strings with 6135 characters,
+and the built_in function-call counts, 4235 in all, are:
+= -- 432
+> -- 128
+< -- 8
++ -- 55
+- -- 40
+* -- 267
+:= -- 613
+add.period$ -- 37
+call.type$ -- 13
+change.case$ -- 63
+chr.to.int$ -- 0
+cite$ -- 15
+duplicate$ -- 185
+empty$ -- 384
+format.name$ -- 40
+if$ -- 950
+int.to.chr$ -- 0
+int.to.str$ -- 13
+missing$ -- 7
+newline$ -- 64
+num.names$ -- 18
+pop$ -- 86
+preamble$ -- 1
+purify$ -- 50
+quote$ -- 0
+skip$ -- 157
+stack$ -- 0
+substring$ -- 290
+swap$ -- 67
+text.length$ -- 8
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 52
+warning$ -- 2
+while$ -- 36
+width$ -- 15
+write$ -- 139
+(There were 4 warnings)

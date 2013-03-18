@@ -1,0 +1,76 @@
+\documentclass{standalone}
+
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,shadows,calc}
+\usepackage{subfigure}
+
+
+\begin{document}
+
+ \begin{center}
+  
+  \begin{tikzpicture} [scale=1, transform shape,
+				state/.style={
+				% The shape:
+				rectangle,
+				% The size:
+      				minimum size=6mm,
+				% The border:
+      				 very thick,
+     				 draw=red!50!black!50,
+      				% The filling:
+				top color=white,
+				bottom color=red!50!black!20, % and something else at the bottom % Font
+				font=\itshape
+    				},
+				asset/.style={
+				% The shape:
+				rectangle,
+				% The size:
+      				minimum size=6mm,
+				% The border:
+      				very thick,draw=green!50!black!50,
+      				% The filling:
+				top color=white,
+				bottom color=green!50!black!20, % and something else at the bottom % Font
+				font=\itshape
+    				},
+				default/.style={
+				% The shape:
+				rectangle,
+				% The size:
+      				minimum size=6mm,
+				% The border:
+      				very thick,draw=black!50,
+   				top color=white,
+				bottom color=black!20,
+      				% The filling:
+				font=\itshape
+    				},
+				]
+    \tikzstyle{every node} = [align=center]
+   % \tikzstyle{asset} = [fill=cyan!15]
+   % \tikzstyle{state} = [fill=magenta!15]
+   % \tikzstyle{event} = [fill=orange!15]
+    \tikzstyle{level 1} = [sibling distance=50mm]
+    \tikzstyle{level 2} = [sibling distance=30mm]
+    \node [default] {$<$topological prefix$>$/EgalCar}
+        child { node [asset] {$<$Car Name$>$/$<$id$>$} 
+		child { node [state] {transform} 
+			child{ node [state] {position} }
+			child{ node [state] {rotation} }
+		}
+		child { node [state] {state} }
+        }
+         child{ node [asset] {anti}
+        		child { node [asset] {$<$Car Name$>$/$<$id$>$}}
+        }
+    ;
+\end{tikzpicture}
+
+
+\end{center}
+
+
+\end{document}
